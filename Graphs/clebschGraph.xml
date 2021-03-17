@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<graph numberOfNodes="16" oriented="false">
+    <node name="0" numberOfConnections="5" xPos="574" yPos="345">
+        <connectedTo>6 7 8 9 10</connectedTo>
+    </node>
+    <node name="1" numberOfConnections="5" xPos="575" yPos="255">
+        <connectedTo>3 4 7 8 11</connectedTo>
+    </node>
+    <node name="2" numberOfConnections="5" xPos="675" yPos="322">
+        <connectedTo>5 4 8 9 12</connectedTo>
+    </node>
+    <node name="3" numberOfConnections="5" xPos="633" yPos="440">
+        <connectedTo>5 1 9 10 13</connectedTo>
+    </node>
+    <node name="4" numberOfConnections="5" xPos="518" yPos="433">
+        <connectedTo>1 2 6 10 14</connectedTo>
+    </node>
+    <node name="5" numberOfConnections="5" xPos="480" yPos="322">
+        <connectedTo>2 3 6 7 15</connectedTo>
+    </node>
+    <node name="6" numberOfConnections="5" xPos="324" yPos="394">
+        <connectedTo>0 4 5 11 13</connectedTo>
+    </node>
+    <node name="7" numberOfConnections="5" xPos="395" yPos="144">
+        <connectedTo>0 5 1 12 14</connectedTo>
+    </node>
+    <node name="8" numberOfConnections="5" xPos="750" yPos="172">
+        <connectedTo>0 2 1 15 13</connectedTo>
+    </node>
+    <node name="9" numberOfConnections="5" xPos="821" yPos="421">
+        <connectedTo>0 2 3 11 14</connectedTo>
+    </node>
+    <node name="10" numberOfConnections="5" xPos="572" yPos="618">
+        <connectedTo>0 3 4 15 12</connectedTo>
+    </node>
+    <node name="11" numberOfConnections="5" xPos="572" yPos="21">
+        <connectedTo>15 1 6 9 12</connectedTo>
+    </node>
+    <node name="12" numberOfConnections="5" xPos="968" yPos="139">
+        <connectedTo>11 2 7 10 13</connectedTo>
+    </node>
+    <node name="13" numberOfConnections="5" xPos="835" yPos="662">
+        <connectedTo>12 3 6 8 14</connectedTo>
+    </node>
+    <node name="14" numberOfConnections="5" xPos="335" yPos="664">
+        <connectedTo>15 13 4 7 9</connectedTo>
+    </node>
+    <node name="15" numberOfConnections="5" xPos="184" yPos="171">
+        <connectedTo>5 8 10 11 14</connectedTo>
+    </node>
+</graph>

@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<graph numberOfNodes="8" oriented="false">
+    <node name="0" numberOfConnections="2" xPos="413" yPos="97">
+        <connectedTo>4 6</connectedTo>
+    </node>
+    <node name="1" numberOfConnections="2" xPos="551" yPos="97">
+        <connectedTo>5 7</connectedTo>
+    </node>
+    <node name="2" numberOfConnections="2" xPos="704" yPos="98">
+        <connectedTo>3 6</connectedTo>
+    </node>
+    <node name="3" numberOfConnections="2" xPos="416" yPos="238">
+        <connectedTo>2 7</connectedTo>
+    </node>
+    <node name="4" numberOfConnections="2" xPos="709" yPos="238">
+        <connectedTo>0 5</connectedTo>
+    </node>
+    <node name="5" numberOfConnections="2" xPos="414" yPos="381">
+        <connectedTo>1 4</connectedTo>
+    </node>
+    <node name="6" numberOfConnections="2" xPos="568" yPos="377">
+        <connectedTo>0 2</connectedTo>
+    </node>
+    <node name="7" numberOfConnections="2" xPos="712" yPos="375">
+        <connectedTo>1 3</connectedTo>
+    </node>
+</graph>

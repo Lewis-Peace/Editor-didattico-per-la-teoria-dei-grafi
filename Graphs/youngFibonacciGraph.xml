@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<graph numberOfNodes="20" oriented="false">
+    <node name="ε" numberOfConnections="1" xPos="95" yPos="380">
+        <connectedTo>1</connectedTo>
+    </node>
+    <node name="1" numberOfConnections="3" xPos="176" yPos="376">
+        <connectedTo>ε 2 11</connectedTo>
+    </node>
+    <node name="2" numberOfConnections="3" xPos="285" yPos="296">
+        <connectedTo>1 12 21</connectedTo>
+    </node>
+    <node name="11" numberOfConnections="3" xPos="284" yPos="456">
+        <connectedTo>1 21 111</connectedTo>
+    </node>
+    <node name="12" numberOfConnections="3" xPos="382" yPos="206">
+        <connectedTo>2 112 22</connectedTo>
+    </node>
+    <node name="21" numberOfConnections="5" xPos="382" yPos="383">
+        <connectedTo>2 11 22 121 211</connectedTo>
+    </node>
+    <node name="111" numberOfConnections="3" xPos="379" yPos="559">
+        <connectedTo>11 211 1111</connectedTo>
+    </node>
+    <node name="112" numberOfConnections="3" xPos="473" yPos="131">
+        <connectedTo>12 1112 212</connectedTo>
+    </node>
+    <node name="22" numberOfConnections="5" xPos="494" yPos="268">
+        <connectedTo>21 12 212 122 221</connectedTo>
+    </node>
+    <node name="121" numberOfConnections="3" xPos="507" yPos="371">
+        <connectedTo>21 1121 221</connectedTo>
+    </node>
+    <node name="211" numberOfConnections="5" xPos="500" yPos="513">
+        <connectedTo>111 21 221 1211 2111</connectedTo>
+    </node>
+    <node name="1111" numberOfConnections="3" xPos="504" yPos="626">
+        <connectedTo>111 2111 11111</connectedTo>
+    </node>
+    <node name="1112" numberOfConnections="1" xPos="643" yPos="40">
+        <connectedTo>112</connectedTo>
+    </node>
+    <node name="212" numberOfConnections="2" xPos="643" yPos="111">
+        <connectedTo>112 22</connectedTo>
+    </node>
+    <node name="122" numberOfConnections="1" xPos="640" yPos="216">
+        <connectedTo>22</connectedTo>
+    </node>
+    <node name="1121" numberOfConnections="1" xPos="643" yPos="298">
+        <connectedTo>121</connectedTo>
+    </node>
+    <node name="221" numberOfConnections="3" xPos="629" yPos="375">
+        <connectedTo>22 121 211</connectedTo>
+    </node>
+    <node name="1211" numberOfConnections="1" xPos="634" yPos="462">
+        <connectedTo>211</connectedTo>
+    </node>
+    <node name="2111" numberOfConnections="2" xPos="633" yPos="552">
+        <connectedTo>211 1111</connectedTo>
+    </node>
+    <node name="11111" numberOfConnections="1" xPos="630" yPos="687">
+        <connectedTo>1111</connectedTo>
+    </node>
+</graph>

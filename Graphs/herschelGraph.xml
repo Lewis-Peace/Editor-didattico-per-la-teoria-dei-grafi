@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<graph numberOfNodes="11" oriented="false">
+    <node name="0" numberOfConnections="4" xPos="578" yPos="33">
+        <connectedTo>4 6 1 2</connectedTo>
+    </node>
+    <node name="1" numberOfConnections="3" xPos="374" yPos="122">
+        <connectedTo>5 0 3</connectedTo>
+    </node>
+    <node name="2" numberOfConnections="3" xPos="791" yPos="107">
+        <connectedTo>5 0 7</connectedTo>
+    </node>
+    <node name="3" numberOfConnections="3" xPos="253" yPos="352">
+        <connectedTo>4 1 9</connectedTo>
+    </node>
+    <node name="4" numberOfConnections="3" xPos="473" yPos="352">
+        <connectedTo>0 3 10</connectedTo>
+    </node>
+    <node name="5" numberOfConnections="4" xPos="580" yPos="352">
+        <connectedTo>1 2 8 9</connectedTo>
+    </node>
+    <node name="6" numberOfConnections="3" xPos="690" yPos="349">
+        <connectedTo>0 7 10</connectedTo>
+    </node>
+    <node name="7" numberOfConnections="3" xPos="909" yPos="349">
+        <connectedTo>6 2 8</connectedTo>
+    </node>
+    <node name="8" numberOfConnections="3" xPos="812" yPos="592">
+        <connectedTo>5 7 10</connectedTo>
+    </node>
+    <node name="9" numberOfConnections="3" xPos="394" yPos="580">
+        <connectedTo>5 3 10</connectedTo>
+    </node>
+    <node name="10" numberOfConnections="4" xPos="593" yPos="690">
+        <connectedTo>4 6 8 9</connectedTo>
+    </node>
+</graph>

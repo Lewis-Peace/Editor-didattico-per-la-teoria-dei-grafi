@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<graph numberOfNodes="24" oriented="false">
+    <node name="0" numberOfConnections="3" xPos="551" yPos="307">
+        <connectedTo>1 2 3</connectedTo>
+    </node>
+    <node name="1" numberOfConnections="3" xPos="634" yPos="252">
+        <connectedTo>0 2 6</connectedTo>
+    </node>
+    <node name="2" numberOfConnections="3" xPos="659" yPos="349">
+        <connectedTo>0 1 9</connectedTo>
+    </node>
+    <node name="3" numberOfConnections="3" xPos="424" yPos="287">
+        <connectedTo>0 4 5</connectedTo>
+    </node>
+    <node name="4" numberOfConnections="3" xPos="379" yPos="230">
+        <connectedTo>3 21 5</connectedTo>
+    </node>
+    <node name="5" numberOfConnections="3" xPos="341" yPos="284">
+        <connectedTo>3 4 17</connectedTo>
+    </node>
+    <node name="6" numberOfConnections="3" xPos="658" yPos="180">
+        <connectedTo>1 7 8</connectedTo>
+    </node>
+    <node name="7" numberOfConnections="3" xPos="651" yPos="103">
+        <connectedTo>6 12 8</connectedTo>
+    </node>
+    <node name="8" numberOfConnections="3" xPos="724" yPos="132">
+        <connectedTo>6 22 7</connectedTo>
+    </node>
+    <node name="9" numberOfConnections="3" xPos="726" yPos="416">
+        <connectedTo>2 10 11</connectedTo>
+    </node>
+    <node name="10" numberOfConnections="3" xPos="738" yPos="489">
+        <connectedTo>9 23 11</connectedTo>
+    </node>
+    <node name="11" numberOfConnections="3" xPos="809" yPos="436">
+        <connectedTo>9 10 18</connectedTo>
+    </node>
+    <node name="12" numberOfConnections="3" xPos="637" yPos="34">
+        <connectedTo>13 7 14</connectedTo>
+    </node>
+    <node name="13" numberOfConnections="3" xPos="288" yPos="106">
+        <connectedTo>21 12 15</connectedTo>
+    </node>
+    <node name="14" numberOfConnections="3" xPos="964" yPos="80">
+        <connectedTo>22 12 16</connectedTo>
+    </node>
+    <node name="15" numberOfConnections="3" xPos="204" yPos="181">
+        <connectedTo>21 13 17</connectedTo>
+    </node>
+    <node name="16" numberOfConnections="3" xPos="1024" yPos="188">
+        <connectedTo>22 14 18</connectedTo>
+    </node>
+    <node name="17" numberOfConnections="3" xPos="214" yPos="442">
+        <connectedTo>5 15 19</connectedTo>
+    </node>
+    <node name="18" numberOfConnections="3" xPos="1007" yPos="412">
+        <connectedTo>11 16 20</connectedTo>
+    </node>
+    <node name="19" numberOfConnections="3" xPos="523" yPos="593">
+        <connectedTo>23 17 20</connectedTo>
+    </node>
+    <node name="20" numberOfConnections="3" xPos="688" yPos="605">
+        <connectedTo>23 19 18</connectedTo>
+    </node>
+    <node name="21" numberOfConnections="3" xPos="299" yPos="183">
+        <connectedTo>4 13 15</connectedTo>
+    </node>
+    <node name="22" numberOfConnections="3" xPos="926" yPos="176">
+        <connectedTo>8 14 16</connectedTo>
+    </node>
+    <node name="23" numberOfConnections="3" xPos="613" yPos="510">
+        <connectedTo>10 19 20</connectedTo>
+    </node>
+</graph>

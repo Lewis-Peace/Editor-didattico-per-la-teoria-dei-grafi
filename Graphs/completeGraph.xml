@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<graph numberOfNodes="19" oriented="false">
+    <node name="0" numberOfConnections="18" xPos="353" yPos="500">
+        <connectedTo>1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18</connectedTo>
+    </node>
+    <node name="1" numberOfConnections="18" xPos="411" yPos="545">
+        <connectedTo>0 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18</connectedTo>
+    </node>
+    <node name="2" numberOfConnections="18" xPos="502" yPos="577">
+        <connectedTo>0 1 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18</connectedTo>
+    </node>
+    <node name="3" numberOfConnections="18" xPos="884" yPos="367">
+        <connectedTo>0 1 2 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18</connectedTo>
+    </node>
+    <node name="4" numberOfConnections="18" xPos="757" yPos="77">
+        <connectedTo>0 1 2 3 5 6 7 8 9 10 11 12 13 14 15 16 17 18</connectedTo>
+    </node>
+    <node name="5" numberOfConnections="18" xPos="840" yPos="134">
+        <connectedTo>0 1 2 3 4 6 7 8 9 10 11 12 13 14 15 16 17 18</connectedTo>
+    </node>
+    <node name="6" numberOfConnections="18" xPos="888" yPos="253">
+        <connectedTo>0 1 2 3 4 5 7 8 9 10 11 12 13 14 15 16 17 18</connectedTo>
+    </node>
+    <node name="7" numberOfConnections="18" xPos="614" yPos="582">
+        <connectedTo>0 1 2 3 4 5 6 8 9 10 11 12 13 14 15 16 17 18</connectedTo>
+    </node>
+    <node name="8" numberOfConnections="18" xPos="731" yPos="553">
+        <connectedTo>0 1 2 3 4 5 6 7 9 10 11 12 13 14 15 16 17 18</connectedTo>
+    </node>
+    <node name="9" numberOfConnections="18" xPos="826" yPos="477">
+        <connectedTo>0 1 2 3 4 5 6 7 8 10 11 12 13 14 15 16 17 18</connectedTo>
+    </node>
+    <node name="10" numberOfConnections="18" xPos="643" yPos="48">
+        <connectedTo>0 1 2 3 4 5 6 7 8 9 11 12 13 14 15 16 17 18</connectedTo>
+    </node>
+    <node name="11" numberOfConnections="18" xPos="542" yPos="37">
+        <connectedTo>0 1 2 3 4 5 6 7 8 9 10 12 13 14 15 16 17 18</connectedTo>
+    </node>
+    <node name="12" numberOfConnections="18" xPos="432" yPos="51">
+        <connectedTo>0 1 2 3 4 5 6 7 8 9 10 11 13 14 15 16 17 18</connectedTo>
+    </node>
+    <node name="13" numberOfConnections="18" xPos="344" yPos="69">
+        <connectedTo>0 1 2 3 4 5 6 7 8 9 10 11 12 14 15 16 17 18</connectedTo>
+    </node>
+    <node name="14" numberOfConnections="18" xPos="293" yPos="116">
+        <connectedTo>0 1 2 3 4 5 6 7 8 9 10 11 12 13 15 16 17 18</connectedTo>
+    </node>
+    <node name="15" numberOfConnections="18" xPos="245" yPos="201">
+        <connectedTo>0 1 2 3 4 5 6 7 8 9 10 11 12 13 14 16 17 18</connectedTo>
+    </node>
+    <node name="16" numberOfConnections="18" xPos="226" yPos="280">
+        <connectedTo>0 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 17 18</connectedTo>
+    </node>
+    <node name="17" numberOfConnections="18" xPos="236" yPos="367">
+        <connectedTo>0 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 18</connectedTo>
+    </node>
+    <node name="18" numberOfConnections="18" xPos="288" yPos="443">
+        <connectedTo>0 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17</connectedTo>
+    </node>
+</graph>
