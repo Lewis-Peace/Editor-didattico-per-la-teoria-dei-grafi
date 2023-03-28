@@ -8,7 +8,9 @@ import javax.swing.AbstractAction;
 import Backend.*;
 import Backend.Exceptions.*;
 import Backend.Traduction.Traduction;
-import Frontend.*;
+
+import Main.Main;
+
 import Frontend.GraphicalParts.PopupMessage;
 import Frontend.GraphicalParts.StepperGUI;
 
@@ -20,15 +22,13 @@ public class PopupButtonsActions {
          */
         private static final long serialVersionUID = 1L;
         private Graph graph;
-        private Canvas canvas;
         private int[] position;
         private Traduction traducer;
         private Path eulerianPath;
 
-        public FindEulerianPathAction(Graph graph, Canvas canvas, Traduction traducer, int[] position, String name) {
+        public FindEulerianPathAction(Graph graph, Traduction traducer, int[] position, String name) {
             super(name);
             this.graph = graph;
-            this.canvas = canvas;
             this.traducer = traducer;
             this.position = position;
         }
@@ -40,7 +40,7 @@ public class PopupButtonsActions {
                 this.eulerianPath = new Path(startingNode, startingNode);
                 this.eulerianPath.findEulerianPath(graph, graph.edgesList.size());
                 if (this.eulerianPath.eluerianEnded) {
-                    new StepperGUI(graph, canvas, this.eulerianPath, TipoAlgoritmo.EULERIANO, traducer, "Stepper");
+                    new StepperGUI(graph, this.eulerianPath, TipoAlgoritmo.EULERIANO, traducer, "Stepper");
                 } else {
                     new PopupMessage(this.traducer.translate("noPath2"), this.traducer.translate("attention"));
                 }
@@ -53,16 +53,14 @@ public class PopupButtonsActions {
     public static class FindHamiltonianPathAction extends AbstractAction {
         private static final long serialVersionUID = 1L;
         private Graph graph;
-        private Canvas canvas;
         private Traduction traducer;
         private int[] position;
         private Path hamiltonianPath;
 
-        public FindHamiltonianPathAction(Graph graph, Canvas canvas, Traduction traducer, int[] position, String name) {
+        public FindHamiltonianPathAction(Graph graph, Traduction traducer, int[] position, String name) {
             super(name);
             this.graph = graph;
             this.traducer = traducer;
-            this.canvas = canvas;
             this.position = position;
         }
 
@@ -73,7 +71,7 @@ public class PopupButtonsActions {
                  this.hamiltonianPath = new Path(startingNode, startingNode);
                  this.hamiltonianPath.findHamiltonianPath(graph, graph.nodesList.size());
                 if (this.hamiltonianPath.foundHamiltonianPath) {
-                    new StepperGUI(graph, canvas, this.hamiltonianPath, TipoAlgoritmo.HAMILTONIANO, traducer, "Stepper");
+                    new StepperGUI(graph, this.hamiltonianPath, TipoAlgoritmo.HAMILTONIANO, traducer, "Stepper");
                 } else {
                     new PopupMessage(this.traducer.translate("noPath3"), this.traducer.translate("attention"));
                 }
@@ -87,14 +85,12 @@ public class PopupButtonsActions {
 
         private static final long serialVersionUID = 5492635494287414457L;
         private Graph graph;
-        private Canvas canvas;
         private int xPosition;
         private int yPosition;
 
-        public AddNodeAction(Graph graph, Canvas canvas, int[] position, String name) {
+        public AddNodeAction(Graph graph, int[] position, String name) {
             super(name);
             this.graph = graph;
-            this.canvas = canvas;
             this.xPosition = position[0];
             this.yPosition = position[1];
         }
@@ -104,7 +100,7 @@ public class PopupButtonsActions {
             String nodeName = getLeastNumberNamePossible(graph.nodesList.size());
             Node node = new Node(xPosition, yPosition, nodeName);
             graph.addNode(node);
-            canvas.paintComponent(canvas.getGraphics());
+            Main.canvas.paintComponent(Main.canvas.getGraphics());
 
         }
 
@@ -126,13 +122,11 @@ public class PopupButtonsActions {
          */
         private static final long serialVersionUID = 7851390276908254776L;
         private Graph graph;
-        private Canvas canvas;
         private int[] position;
 
-        public RemoveNodeAction(Graph graph, Canvas canvas, int[] position, String name) {
+        public RemoveNodeAction(Graph graph, int[] position, String name) {
             super(name);
             this.graph = graph;
-            this.canvas = canvas;
             this.position = position;
         }
 
@@ -145,7 +139,7 @@ public class PopupButtonsActions {
                 } catch (NodeDoesNotExitsException e1) {
                     System.err.println(e1.toString());
                 }
-                canvas.repaint();
+                Main.canvas.repaint();
             }
         }
     }
@@ -157,13 +151,11 @@ public class PopupButtonsActions {
          */
         private static final long serialVersionUID = 6088549357706659851L;
         private Node node;
-        private Canvas canvas;
         private Color color;
 
-        public ChangeColorOfNodeAction(Node node, Canvas canvas, Color color, String buttonName) {
+        public ChangeColorOfNodeAction(Node node, Color color, String buttonName) {
             super(buttonName);
             this.node = node;
-            this.canvas = canvas;
             this.color = color;
         }
 
@@ -172,7 +164,7 @@ public class PopupButtonsActions {
             if (node != null) {
                 node.color = color;
             }
-            canvas.repaint();
+            Main.canvas.repaint();
         }
     }
 
@@ -184,13 +176,11 @@ public class PopupButtonsActions {
         private static final long serialVersionUID = 6631150416007845101L;
         private Graph graph;
         private int[] position;
-        private Canvas canvas;
 
-        public ConnectAllSelectedToNode(Graph graph, int[] position, Canvas canvas, String name) {
+        public ConnectAllSelectedToNode(Graph graph, int[] position, String name) {
             super(name);
             this.graph = graph;
             this.position = position;
-            this.canvas = canvas;
         }
 
         @Override
@@ -210,7 +200,7 @@ public class PopupButtonsActions {
             for (i = 0; i < graph.nodesList.size(); i++) {
                 graph.nodesList.get(i).selected = false;
             }
-            canvas.repaint();
+            Main.canvas.repaint();
         }
     }
     

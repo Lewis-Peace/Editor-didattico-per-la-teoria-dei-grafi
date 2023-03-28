@@ -7,13 +7,9 @@ import java.io.File;
 import java.io.IOException;
 
 import javax.swing.AbstractAction;
-import javax.swing.JFrame;
 import javax.swing.WindowConstants;
 
-import Backend.Graph;
-import Backend.Traduction.Traduction;
-import Frontend.Canvas;
-import Frontend.MainGraphical;
+import Main.Main;
 import Frontend.GraphicalParts.HelpWindow;
 import Frontend.GraphicalParts.InputTextField;
 import Frontend.GraphicalParts.GraphicalEdge.ArrowType;
@@ -26,22 +22,16 @@ public class OptionsActions {
          *
          */
         private static final long serialVersionUID = -482735659668325299L;
-        private Graph graph;
-        private Canvas canvas;
-        private Traduction traducer;
 
-        public ChangeDiameterAction(String buttonName, Graph graph, Canvas canvas, Traduction traducer) {
+        public ChangeDiameterAction(String buttonName) {
             super(buttonName);
-            this.graph = graph;
-            this.canvas = canvas;
-            this.traducer = traducer;
         }
 
         @Override
         public void actionPerformed(ActionEvent e) {
-            int diameter = Integer.parseInt(new InputTextField(traducer.translate("diamLab")).getInput("Options"));
-            graph.changeNodesDiameter(diameter);
-            canvas.repaint();
+            int diameter = Integer.parseInt(new InputTextField(Main.traducer.translate("diamLab")).getInput("Options"));
+            Main.graph.changeNodesDiameter(diameter);
+            Main.canvas.repaint();
         }
 
     }
@@ -52,21 +42,17 @@ public class OptionsActions {
          *
          */
         private static final long serialVersionUID = 9040806341699508339L;
-        private Graph graph;
-        private Canvas canvas;
         private ArrowType arrowType;
 
-        public ChangeArrowTypeAction(String buttonName, Graph graph, Canvas canvas, ArrowType type) {
+        public ChangeArrowTypeAction(String buttonName, ArrowType type) {
             super(buttonName);
-            this.graph = graph;
-            this.canvas = canvas;
             this.arrowType = type;
         }
 
         @Override
         public void actionPerformed(ActionEvent e) {
-            graph.changeArrowType(this.arrowType);
-            canvas.repaint();
+            Main.graph.changeArrowType(this.arrowType);
+            Main.canvas.repaint();
         }
 
     }
@@ -78,22 +64,18 @@ public class OptionsActions {
          */
         private static final long serialVersionUID = 2517029647508976026L;
 
-        private JFrame window;
         private String language;
-        private Graph graph;
 
-        public ChangeLanguageAction(JFrame window, Graph graph, String language, String name) {
+        public ChangeLanguageAction(String language, String name) {
             super(name);
-            this.window = window;
             this.language = language;
-            this.graph = graph;
         }
 
         @Override
         public void actionPerformed(ActionEvent e) {
-            window.setDefaultCloseOperation(WindowConstants.HIDE_ON_CLOSE);
-            window.dispatchEvent(new WindowEvent(window, WindowEvent.WINDOW_CLOSING));
-            MainGraphical.openWindow(graph, language);
+            Main.frame.setDefaultCloseOperation(WindowConstants.HIDE_ON_CLOSE);
+            Main.frame.dispatchEvent(new WindowEvent(Main.frame, WindowEvent.WINDOW_CLOSING));
+            Main.openWindow(Main.graph, language);
         }
 
     }
@@ -101,19 +83,17 @@ public class OptionsActions {
     public static class OpenHelpWindowAction extends AbstractAction {
 
         private static final long serialVersionUID = 1L;
-        private Traduction traducer;
 
-        public OpenHelpWindowAction(Traduction traducer, String name) {
+        public OpenHelpWindowAction(String name) {
             super(name);
-            this.traducer = traducer;
         }
 
         @Override
         public void actionPerformed(ActionEvent e) {
-            if (traducer.language.equals("italian")) {
+            if (Main.traducer.language.equals("italian")) {
                 this.openItalianHelpPage();
             } else {
-                new HelpWindow(traducer);
+                new HelpWindow(Main.traducer);
             }
         }
 

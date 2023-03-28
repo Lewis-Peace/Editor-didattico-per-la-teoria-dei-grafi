@@ -18,8 +18,8 @@ import Backend.Node;
 import Backend.Path;
 import Backend.TipoAlgoritmo;
 import Backend.Exceptions.NodeNotAdjacentException;
-import Backend.Traduction.Traduction;
 import Frontend.Canvas;
+import Main.Main;
 import Frontend.GraphicalParts.InputTextField;
 import Frontend.GraphicalParts.PopupMessage;
 import Frontend.GraphicalParts.StepperGUI;
@@ -28,49 +28,43 @@ public class AdvancedActions {
 
     public static class FindIfBipartedGraph extends AbstractAction {
         private static final long serialVersionUID = 1L;
-        private Graph graph;
-        private Canvas canvas;
-        private Traduction traducer;
 
-        public FindIfBipartedGraph(Graph graph, Canvas canvas, Traduction traducer, String name) {
+        public FindIfBipartedGraph(String name) {
             super(name);
-            this.graph = graph;
-            this.canvas = canvas;
-            this.traducer = traducer;
 
         }
 
         @Override
         public void actionPerformed(ActionEvent e) {
-            if (this.graph.nodesList.isEmpty()) {
-                new PopupMessage(this.traducer.translate("emptyGraph"), this.traducer.translate("error"));
+            if (Main.graph.nodesList.isEmpty()) {
+                new PopupMessage(Main.traducer.translate("emptyGraph"), Main.traducer.translate("error"));
             } else {
-                graph.isBiparted();
-                Boolean resutl = this.graph.isBiparted;
+                Main.graph.isBiparted();
+                Boolean resutl = Main.graph.isBiparted;
                 if (resutl) {
-                    for (Node node : graph.nodesList) {
+                    for (Node node : Main.graph.nodesList) {
                         if (node.colore == Colore.BIANCO) {
                             node.changeNodeColor(Color.WHITE);
                         } else {
                             node.changeNodeColor(Color.BLACK);
                         }
                     }
-                    canvas.repaint();
+                    Main.canvas.repaint();
                 } else {
-                    Node node0 = graph.sameColorNodesForBiparted.get(0);
-                    Node node1 = graph.sameColorNodesForBiparted.get(1);
+                    Node node0 = Main.graph.sameColorNodesForBiparted.get(0);
+                    Node node1 = Main.graph.sameColorNodesForBiparted.get(1);
                     try {
 						findRuleException(node0, node1);
 					} catch (NodeNotAdjacentException e1) {
 					}
-                    canvas.repaint();
-                    new PopupMessage(traducer.translate("biErr"), "Alert");
+                    Main.canvas.repaint();
+                    new PopupMessage(Main.traducer.translate("biErr"), "Alert");
                 }
             }
         }
 
         private void findRuleException(Node node0, Node node1) throws NodeNotAdjacentException {
-            Graph clonedGraph = this.graph.cloneThisGraph();
+            Graph clonedGraph = Main.graph.cloneThisGraph();
             Node clonedNode0 = clonedGraph.getNodeByName(node0.name);
             Node clonedNode1 = clonedGraph.getNodeByName(node1.name);
             clonedGraph.deleteConnection(clonedNode0, clonedNode1);
@@ -78,16 +72,16 @@ public class AdvancedActions {
             path.getShortestPath(clonedGraph);
             ArrayList<Edge> edgeList = path.edgePath;
             for (Edge edge : edgeList) {
-                Node n0 = this.graph.getNodeByName(edge.startingNode.name);
-                Node n1 = this.graph.getNodeByName(edge.endingNode.name);
-                this.graph.getNodesConnection(n0, n1).changeColor(Color.RED);
-                if (!this.graph.oriented) {
-                    this.graph.getNodesConnection(n1, n0).changeColor(Color.RED);
+                Node n0 = Main.graph.getNodeByName(edge.startingNode.name);
+                Node n1 = Main.graph.getNodeByName(edge.endingNode.name);
+                Main.graph.getNodesConnection(n0, n1).changeColor(Color.RED);
+                if (!Main.graph.oriented) {
+                    Main.graph.getNodesConnection(n1, n0).changeColor(Color.RED);
                 }
             }
-            this.graph.getNodesConnection(node0, node1).changeColor(Color.RED);
-            if (!this.graph.oriented) {
-                this.graph.getNodesConnection(node1, node0).changeColor(Color.RED);
+            Main.graph.getNodesConnection(node0, node1).changeColor(Color.RED);
+            if (!Main.graph.oriented) {
+                Main.graph.getNodesConnection(node1, node0).changeColor(Color.RED);
             }
         }
     }
@@ -97,21 +91,15 @@ public class AdvancedActions {
          *
          */
         private static final long serialVersionUID = 1L;
-        private Graph graph;
-        private Canvas canvas;
         private JPanel panel = new JPanel();
         private JTextField txt1 = new JTextField();
         private JTextField txt2 = new JTextField();
-        private Traduction traducer;
 
-        public FindShortestPathFrom2Nodes(Graph graph, Canvas canvas, Traduction traducer, String name) {
+        public FindShortestPathFrom2Nodes(String name) {
             super(name);
-            this.graph = graph;
-            this.canvas = canvas;
-            this.traducer = traducer;
-            this.panel.add(new JLabel(traducer.translate("stNdNm")));
+            this.panel.add(new JLabel(Main.traducer.translate("stNdNm")));
             this.panel.add(txt1);
-            this.panel.add(new JLabel(traducer.translate("fnNdNm")));
+            this.panel.add(new JLabel(Main.traducer.translate("fnNdNm")));
             this.panel.add(txt2);
             this.panel.setLayout(new GridLayout());
         }
@@ -120,26 +108,26 @@ public class AdvancedActions {
         public void actionPerformed(ActionEvent e) {
             int result = JOptionPane.showConfirmDialog(null, this.panel, "Input data", JOptionPane.OK_CANCEL_OPTION);
             if (result == JOptionPane.OK_OPTION) {
-                Node startingNode = graph.getNodeByName(txt1.getText());
-                Node finalNode = graph.getNodeByName(txt2.getText());
+                Node startingNode = Main.graph.getNodeByName(txt1.getText());
+                Node finalNode = Main.graph.getNodeByName(txt2.getText());
                 if (startingNode == null || finalNode == null) {
-                    new PopupMessage(this.traducer.translate("nodeNameErrorMul"), this.traducer.translate("error"));
+                    new PopupMessage(Main.traducer.translate("nodeNameErrorMul"), Main.traducer.translate("error"));
                 } else {
-                    Path path = graph.minPathFromFirstNodeToSecond(startingNode, finalNode);
+                    Path path = Main.graph.minPathFromFirstNodeToSecond(startingNode, finalNode);
                     if (finalNode.parent != null) {
                         for (int i = 0; i < path.edgePath.size(); i++) {
                             Edge edge = path.edgePath.get(i);
-                            edge = graph.getNodesConnection(edge.startingNode, edge.endingNode);
+                            edge = Main.graph.getNodesConnection(edge.startingNode, edge.endingNode);
                             edge.changeColor(Color.RED);
-                            if (!graph.oriented) {
-                                Edge edge2 = graph.getNodesConnection(edge.endingNode, edge.startingNode);
+                            if (!Main.graph.oriented) {
+                                Edge edge2 = Main.graph.getNodesConnection(edge.endingNode, edge.startingNode);
                                 edge2.changeColor(Color.RED);
                             }
                             edge.oriented = true;
                         }
-                        canvas.repaint();
+                        Main.canvas.repaint();
                     } else {
-                        new PopupMessage(traducer.translate("noPath1"), "Attention");
+                        new PopupMessage(Main.traducer.translate("noPath1"), "Attention");
                     }
                 }
             }
@@ -150,30 +138,24 @@ public class AdvancedActions {
          *
          */
         private static final long serialVersionUID = 1L;
-        private Graph graph;
-        private Canvas canvas;
-        private Traduction traducer;
         private Path eulerianPath;
 
-        public FindEulerianPathAction(Graph graph, Canvas canvas, Traduction traducer, String name) {
+        public FindEulerianPathAction(String name) {
             super(name);
-            this.graph = graph;
-            this.canvas = canvas;
-            this.traducer = traducer;
         }
 
         @Override
         public void actionPerformed(ActionEvent e) {
-            if (graph.nodesList.isEmpty()) {
-                new PopupMessage(this.traducer.translate("emptyGraph"), this.traducer.translate("error"));
+            if (Main.graph.nodesList.isEmpty()) {
+                new PopupMessage(Main.traducer.translate("emptyGraph"), Main.traducer.translate("error"));
             } else {
-                Node startingNode = graph.nodesList.get(0);
+                Node startingNode = Main.graph.nodesList.get(0);
                 this.eulerianPath = new Path(startingNode, startingNode);
-                this.eulerianPath.findEulerianPath(graph, graph.edgesList.size());
+                this.eulerianPath.findEulerianPath(Main.graph, Main.graph.edgesList.size());
                 if (this.eulerianPath.eluerianEnded) {
-                    new StepperGUI(graph, canvas, this.eulerianPath, TipoAlgoritmo.EULERIANO, traducer, "Stepper");
+                    new StepperGUI(Main.graph, this.eulerianPath, TipoAlgoritmo.EULERIANO, Main.traducer, "Stepper");
                 } else {
-                    new PopupMessage(traducer.translate("noPath2"), traducer.translate("attention"));
+                    new PopupMessage(Main.traducer.translate("noPath2"), Main.traducer.translate("attention"));
                 }
             }
         }
@@ -181,30 +163,24 @@ public class AdvancedActions {
     }
     public static class FindHamiltonianPathAction extends AbstractAction {
         private static final long serialVersionUID = 1L;
-        private Graph graph;
-        private Canvas canvas;
-        private Traduction traducer;
         private Path hamiltonianPath;
 
-        public FindHamiltonianPathAction(Graph graph, Canvas canvas, Traduction traducer, String name) {
+        public FindHamiltonianPathAction(String name) {
             super(name);
-            this.graph = graph;
-            this.canvas = canvas;
-            this.traducer = traducer;
         }
 
         @Override
         public void actionPerformed(ActionEvent e) {
-            if (graph.nodesList.isEmpty()) {
-                new PopupMessage(this.traducer.translate("emptyGraph"), this.traducer.translate("error"));
+            if (Main.graph.nodesList.isEmpty()) {
+                new PopupMessage(Main.traducer.translate("emptyGraph"), Main.traducer.translate("error"));
             } else {
-                Node startingNode = graph.nodesList.get(0);
+                Node startingNode = Main.graph.nodesList.get(0);
                 this.hamiltonianPath = new Path(startingNode, startingNode);
-                this.hamiltonianPath.findHamiltonianPath(graph, graph.nodesList.size());
+                this.hamiltonianPath.findHamiltonianPath(Main.graph, Main.graph.nodesList.size());
                 if (this.hamiltonianPath.foundHamiltonianPath) {
-                    new StepperGUI(graph, canvas, this.hamiltonianPath, TipoAlgoritmo.HAMILTONIANO, traducer, "Stepper");
+                    new StepperGUI(Main.graph, this.hamiltonianPath, TipoAlgoritmo.HAMILTONIANO, Main.traducer, "Stepper");
                 } else {
-                    new PopupMessage(traducer.translate("noPath3"), traducer.translate("attention"));
+                    new PopupMessage(Main.traducer.translate("noPath3"), Main.traducer.translate("attention"));
                 }
             }
         }
@@ -217,27 +193,21 @@ public class AdvancedActions {
          *
          */
         private static final long serialVersionUID = 5492635494287414457L;
-        private Graph graph;
-        private Canvas canvas;
         private int radius;
-        private Traduction traducer;
 
-        public AddNodeWithSpecificNameAction(Graph graph, Canvas canvas, Traduction traducer, String buttonName) {
+        public AddNodeWithSpecificNameAction(String buttonName) {
             super(buttonName);
-            this.graph = graph;
-            this.canvas = canvas;
-            this.traducer = traducer;
             this.radius = new Node(0,0,0).diameter;
         }
 
         @Override
         public void actionPerformed(ActionEvent e) {
-            String name = new InputTextField(traducer.translate("ndNm")).getInput("Input");
+            String name = new InputTextField(Main.traducer.translate("ndNm")).getInput("Input");
             if (name != null) {
                 int[] position = getFreePosition(radius * 2);
                 Node node = new Node(position[0], position[1], name);
-                graph.addNode(node);
-                canvas.repaint();
+                Main.graph.addNode(node);
+                Main.canvas.repaint();
             }
 
         }
@@ -245,9 +215,9 @@ public class AdvancedActions {
         private int[] getFreePosition(int radius) {
             int[] position = new int[2];
             do {
-                position[0] = (int) Math.floor(Math.random() * (canvas.getWidth() - radius)) + radius/2;
-                position[1] = (int) Math.floor(Math.random() * (canvas.getHeight() - radius)) + radius/2;
-            } while (graph.getNodeByPosition(position) != null);
+                position[0] = (int) Math.floor(Math.random() * (Main.canvas.getWidth() - radius)) + radius/2;
+                position[1] = (int) Math.floor(Math.random() * (Main.canvas.getHeight() - radius)) + radius/2;
+            } while (Main.graph.getNodeByPosition(position) != null);
             return position;
         }
         
@@ -282,37 +252,31 @@ public class AdvancedActions {
          *
          */
         private static final long serialVersionUID = 1L;
-        private Graph graph;
-        private Canvas canvas;
-        private Traduction traducer;
 
-        public FindArborescenceAction(Graph graph, Canvas canvas, Traduction traducer, String name) {
+        public FindArborescenceAction(String name) {
             super(name);
-            this.graph = graph;
-            this.canvas = canvas;
-            this.traducer = traducer;
         }
 
         @Override
         public void actionPerformed(ActionEvent e) {
-            Node startingNode = graph.getNodeByName(new InputTextField(traducer.translate("arboQ") + ":").getInput(traducer.translate("arN")));
+            Node startingNode = Main.graph.getNodeByName(new InputTextField(Main.traducer.translate("arboQ") + ":").getInput(Main.traducer.translate("arN")));
             if (startingNode == null) {
-                new PopupMessage(this.traducer.translate("nodeNameError"), this.traducer.translate("error"));
+                new PopupMessage(Main.traducer.translate("nodeNameError"), Main.traducer.translate("error"));
             } else {
-                graph.findArborescence(startingNode);
+                Main.graph.findArborescence(startingNode);
                 paintArborescence();
-                canvas.repaint();
+                Main.canvas.repaint();
             }
         }
 
         private void paintArborescence() {
-            for (Node node : graph.nodesList) {
+            for (Node node : Main.graph.nodesList) {
                 if (node.parent != node) {
-                    Edge edge = graph.getNodesConnection(node.parent, node);
+                    Edge edge = Main.graph.getNodesConnection(node.parent, node);
                     edge.changeColor(Color.RED);
                     edge.oriented = true;
-                    if (!graph.oriented) {
-                        Edge revEdge = graph.getNodesConnection(node, node.parent);
+                    if (!Main.graph.oriented) {
+                        Edge revEdge = Main.graph.getNodesConnection(node, node.parent);
                         revEdge.changeColor(Color.RED);
                     }
                 }

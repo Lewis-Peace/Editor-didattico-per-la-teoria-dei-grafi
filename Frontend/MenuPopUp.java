@@ -29,20 +29,20 @@ public class MenuPopUp extends JPopupMenu {
         this.graph = graph;
         this.canvas = canvas;
         this.traducer = traducer;
-        this.add(new JMenuItem(new PopupButtonsActions.AddNodeAction(graph, canvas, position, traducer.translate("+Node"))));
-        this.add(new JMenuItem(new PopupButtonsActions.RemoveNodeAction(graph, canvas, position, traducer.translate("-Node"))));
-        this.add(new JMenuItem(new PopupButtonsActions.ConnectAllSelectedToNode(graph, position, canvas, traducer.translate("conThNo"))));
-        this.add(new JMenuItem(new PopupButtonsActions.FindHamiltonianPathAction(graph, canvas, traducer, position, traducer.translate("ham"))));
-        this.add(new JMenuItem(new PopupButtonsActions.FindEulerianPathAction(graph, canvas, traducer, position, traducer.translate("eul"))));
+        this.add(new JMenuItem(new PopupButtonsActions.AddNodeAction(graph, position, traducer.translate("+Node"))));
+        this.add(new JMenuItem(new PopupButtonsActions.RemoveNodeAction(graph, position, traducer.translate("-Node"))));
+        this.add(new JMenuItem(new PopupButtonsActions.ConnectAllSelectedToNode(graph, position, traducer.translate("conThNo"))));
+        this.add(new JMenuItem(new PopupButtonsActions.FindHamiltonianPathAction(graph, traducer, position, traducer.translate("ham"))));
+        this.add(new JMenuItem(new PopupButtonsActions.FindEulerianPathAction(graph, traducer, position, traducer.translate("eul"))));
         addColorsToMenu(this, canvas, graph, position);
     }
 
     private void addColorsToMenu(JPopupMenu menu, Canvas canvas, Graph graph, int[] position) {
         Node node = graph.getNodeByPosition(position);
         JMenu colorsMenu = new JMenu(traducer.translate("cngCol"));
-        colorsMenu.add(new JMenuItem(new PopupButtonsActions.ChangeColorOfNodeAction(node, canvas, Color.BLACK, traducer.translate("black"))));
-        colorsMenu.add(new JMenuItem(new PopupButtonsActions.ChangeColorOfNodeAction(node, canvas, Color.WHITE, traducer.translate("white"))));
-        colorsMenu.add(new JMenuItem(new PopupButtonsActions.ChangeColorOfNodeAction(node, canvas, Color.RED, traducer.translate("red"))));
+        colorsMenu.add(new JMenuItem(new PopupButtonsActions.ChangeColorOfNodeAction(node, Color.BLACK, traducer.translate("black"))));
+        colorsMenu.add(new JMenuItem(new PopupButtonsActions.ChangeColorOfNodeAction(node, Color.WHITE, traducer.translate("white"))));
+        colorsMenu.add(new JMenuItem(new PopupButtonsActions.ChangeColorOfNodeAction(node, Color.RED, traducer.translate("red"))));
         menu.add(colorsMenu);
     }
 

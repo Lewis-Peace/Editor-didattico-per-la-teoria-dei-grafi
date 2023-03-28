@@ -14,7 +14,8 @@ import Backend.Node;
 import Backend.Path;
 import Backend.TipoAlgoritmo;
 import Backend.Traduction.Traduction;
-import Frontend.Canvas;
+
+import Main.Main;
 
 import java.awt.Color;
 import java.awt.Dimension;
@@ -26,18 +27,18 @@ public class StepperGUI extends JFrame {
     int counter;
     Traduction traducer;
 
-    public StepperGUI(Graph graph, Canvas canvas, Path path, TipoAlgoritmo algo, Traduction traducer, String name) {
+    public StepperGUI(Graph graph, Path path, TipoAlgoritmo algo, Traduction traducer, String name) {
         super(name);
         this.traducer = traducer;
         Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
         JMenuBar menubar = new JMenuBar();
-        JButton forwardButton = new JButton(new MakeAStepAction(graph, canvas, algo, path));
-        JButton undoButton = new JButton(new UndoAStepAction(graph, canvas, algo, path));
+        JButton forwardButton = new JButton(new MakeAStepAction(graph, algo, path));
+        JButton undoButton = new JButton(new UndoAStepAction(graph, algo, path));
         menubar.add(undoButton);
         menubar.add(new JLabel(this.traducer.translate("stepperText")));
         menubar.add(forwardButton);
         this.add(menubar, BorderLayout.NORTH);
-        this.add(new JButton(new DoAllStepsAction(graph, canvas, algo, path, traducer)), BorderLayout.SOUTH);
+        this.add(new JButton(new DoAllStepsAction(graph, algo, path, traducer)), BorderLayout.SOUTH);
         this.pack();
         this.setLocation(dim.width / 2 - this.getSize().width / 2, dim.height / 4 * 3);
         this.setVisible(true);
@@ -49,14 +50,12 @@ public class StepperGUI extends JFrame {
          */
         private static final long serialVersionUID = 1L;
         Graph graph;
-        Canvas canvas;
         Path path;
         TipoAlgoritmo algo;
         
-        public DoAllStepsAction(Graph graph, Canvas canvas, TipoAlgoritmo algo, Path path, Traduction traducer) {
+        public DoAllStepsAction(Graph graph, TipoAlgoritmo algo, Path path, Traduction traducer) {
             super(traducer.translate("doAllSteps"));
             this.graph = graph;
-            this.canvas = canvas;
             this.algo = algo;
             this.path = path;
             counter = 0;
@@ -70,7 +69,7 @@ public class StepperGUI extends JFrame {
             } else if (algo == TipoAlgoritmo.HAMILTONIANO) {
                 colorEdgesHamiltonian(-1);
             }
-            this.canvas.repaint();
+            Main.canvas.repaint();
         }
         
 
@@ -90,7 +89,7 @@ public class StepperGUI extends JFrame {
                 }
                 edge.oriented = true;
             }
-            canvas.repaint();
+            Main.canvas.repaint();
         }
         
         private void colorEdgesHamiltonian(int steps) {
@@ -111,7 +110,7 @@ public class StepperGUI extends JFrame {
                     graph.getNodesConnection(node1, node0).changeColor(Color.RED);
                 }
             }
-            canvas.repaint();
+            Main.canvas.repaint();
         }
     }
 
@@ -122,14 +121,12 @@ public class StepperGUI extends JFrame {
          */
         private static final long serialVersionUID = 1L;
         Graph graph;
-        Canvas canvas;
         Path path;
         TipoAlgoritmo algo;
 
-        public MakeAStepAction(Graph graph, Canvas canvas, TipoAlgoritmo algo, Path path) {
+        public MakeAStepAction(Graph graph, TipoAlgoritmo algo, Path path) {
             super(">|");
             this.graph = graph;
-            this.canvas = canvas;
             this.algo = algo;
             this.path = path;
             counter = 0;
@@ -155,7 +152,7 @@ public class StepperGUI extends JFrame {
             } else if (algo == TipoAlgoritmo.HAMILTONIANO) {
                 colorEdgesHamiltonian(counter);
             }
-            this.canvas.repaint();
+            Main.canvas.repaint();
         }
         
 
@@ -175,7 +172,7 @@ public class StepperGUI extends JFrame {
                 }
                 edge.oriented = true;
             }
-            canvas.repaint();
+            Main.canvas.repaint();
         }
         
         private void colorEdgesHamiltonian(int steps) {
@@ -196,7 +193,7 @@ public class StepperGUI extends JFrame {
                     graph.getNodesConnection(node1, node0).changeColor(Color.RED);
                 }
             }
-            canvas.repaint();
+            Main.canvas.repaint();
         }
         
     }
@@ -207,14 +204,12 @@ public class StepperGUI extends JFrame {
          */
         private static final long serialVersionUID = 1L;
         Graph graph;
-        Canvas canvas;
         Path path;
         TipoAlgoritmo algo;
 
-        public UndoAStepAction(Graph graph, Canvas canvas, TipoAlgoritmo algo, Path path) {
+        public UndoAStepAction(Graph graph, TipoAlgoritmo algo, Path path) {
             super("|<");
             this.graph = graph;
-            this.canvas = canvas;
             this.algo = algo;
             this.path = path;
             counter = 0;
@@ -233,7 +228,7 @@ public class StepperGUI extends JFrame {
             } else if (algo == TipoAlgoritmo.HAMILTONIANO) {
                 colorEdgesHamiltonian(counter);
             }
-            this.canvas.repaint();
+            Main.canvas.repaint();
         }
         
         private void colorEdgesEulerian(int steps) {
@@ -252,7 +247,7 @@ public class StepperGUI extends JFrame {
                 }
                 edge.oriented = true;
             }
-            canvas.repaint();
+            Main.canvas.repaint();
         }
 
         private void colorEdgesHamiltonian(int steps) {
@@ -273,7 +268,7 @@ public class StepperGUI extends JFrame {
                     graph.getNodesConnection(node1, node0).changeColor(Color.RED);
                 }
             }
-            canvas.repaint();
+            Main.canvas.repaint();
         }
         
     }

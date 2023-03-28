@@ -4,19 +4,16 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.util.ArrayList;
 
-import Backend.Graph;
 import Backend.Node;
 import Backend.Exceptions.NodeDoesNotExitsException;
 
+import Main.Main;
+
 public class KeyboardHandler implements KeyListener {
 
-    Graph graph;
-    Canvas canvas;
     int movingPrecision = 1;
 
-    public KeyboardHandler (Graph graph, Canvas canvas) {
-        this.graph = graph;
-        this.canvas = canvas;
+    public KeyboardHandler () {
     }
 
     /**
@@ -25,8 +22,8 @@ public class KeyboardHandler implements KeyListener {
      */
     private ArrayList<Node> getSelectedNodes() {
         ArrayList<Node> selectedNodes = new ArrayList<Node>();
-        for (int i = 0; i < this.graph.nodesList.size(); i++) {
-            Node node = this.graph.nodesList.get(i);
+        for (int i = 0; i < Main.graph.nodesList.size(); i++) {
+            Node node = Main.graph.nodesList.get(i);
             if (node.selected == true) {
                 selectedNodes.add(node);
             }
@@ -43,12 +40,12 @@ public class KeyboardHandler implements KeyListener {
         if (!nodesToDelete.isEmpty()) {
             for (Node node: nodesToDelete) {
                 try {
-                    this.graph.deleteNode(node);
+                    Main.graph.deleteNode(node);
                 } catch (NodeDoesNotExitsException e) {
                 }
             }
         }
-        canvas.repaint();
+        Main.canvas.repaint();
     }
 
     /**
@@ -56,10 +53,10 @@ public class KeyboardHandler implements KeyListener {
      */
     public void addNode() {
         int[] position = getFreePosition((new Node(0,0,0)).diameter * 2);
-        String nodeName = getLeastNumberNamePossible(graph.nodesList.size());
+        String nodeName = getLeastNumberNamePossible(Main.graph.nodesList.size());
         Node node = new Node(position[0], position[1], nodeName);
-        this.graph.addNode(node);
-        this.canvas.paintComponent(canvas.getGraphics());
+        Main.graph.addNode(node);
+        Main.canvas.paintComponent(Main.canvas.getGraphics());
 
     }
 
@@ -71,9 +68,9 @@ public class KeyboardHandler implements KeyListener {
     private int[] getFreePosition(int radius) {
         int[] position = new int[2];
         do {
-            position[0] = (int) Math.floor(Math.random() * (canvas.getWidth() - radius)) + radius/2;
-            position[1] = (int) Math.floor(Math.random() * (canvas.getHeight() - radius)) + radius/2;
-        } while (this.graph.getNodeByPosition(position) != null);
+            position[0] = (int) Math.floor(Math.random() * (Main.canvas.getWidth() - radius)) + radius/2;
+            position[1] = (int) Math.floor(Math.random() * (Main.canvas.getHeight() - radius)) + radius/2;
+        } while (Main.graph.getNodeByPosition(position) != null);
         return position;
     }
     
@@ -84,7 +81,7 @@ public class KeyboardHandler implements KeyListener {
      */
     private String getLeastNumberNamePossible(int maxName) {
         for (int i = 0; i <= maxName; i++) {
-            if (this.graph.getNodeByName(i + "") == null) {
+            if (Main.graph.getNodeByName(i + "") == null) {
                 return i + "";
             }
         }
@@ -108,7 +105,7 @@ public class KeyboardHandler implements KeyListener {
         } else if (key == KeyEvent.VK_RIGHT) {
             moveNodes(this.movingPrecision * 1, 0);
         }
-        this.canvas.repaint();
+        Main.canvas.repaint();
     }
 
     private void changeMovingPrecision(char operation) {
