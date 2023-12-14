@@ -1,13 +1,13 @@
 package Backend;
 
 import java.awt.Color;
-
 import java.util.ArrayList;
 
 import Backend.Exceptions.*;
+import Backend.Interfaces.IGraph;
 import Frontend.GraphicalParts.GraphicalEdge.ArrowType;
 
-public class Graph {
+public class Graph implements IGraph{
     public Boolean oriented;
     public ArrayList<Node> nodesList;
     public ArrayList<Edge> edgesList;
@@ -26,11 +26,6 @@ public class Graph {
         edgesList = new ArrayList<Edge>();
     }
 
-    /**
-     * Adds a node in the graph
-     * 
-     * @param node The node to add
-     */
     public void addNode(Node node) {
         nodesList.add(node);
     }
@@ -51,11 +46,6 @@ public class Graph {
         }
     }
 
-    /*
-     * Connects 2 nodes in the graph keeping in mind if the graph is oriented or
-     * not, if it is it adds only the connection frome node0 to node 1 else it
-     * connects also from node1 to node0
-     */
     public void connectNodes(Node node0, Node node1) throws NodesAlreadyConnectedException {
         if (connectionAlreadyExist(node0, node1)) {
             throw new NodesAlreadyConnectedException(node0, node1);
@@ -68,14 +58,6 @@ public class Graph {
         }
     }
 
-    /**
-     * Deletes the connection of 2 given nodes
-     * 
-     * @param node0 Node where the connection starts
-     * @param node1 Node where the connection ends
-     * @throws NodeNotAdjacentException Thrown if the nodes doesn't have a
-     *                                  connection when the function is called
-     */
     public void deleteConnection(Node node0, Node node1) throws NodeNotAdjacentException {
         ArrayList<Edge> connectionsToRemove = node0.disconectNode(node1, oriented);
         for (int i = 0; i < connectionsToRemove.size(); i++) {
@@ -84,14 +66,8 @@ public class Graph {
             }
         }
     }
-
-    /**
-     * Deletes every connection related to a given node
-     * 
-     * @param node The node there te connections come or starts
-     * @throws NodeNotAdjacentException If the connection does not exists
-     */
-    public void deleteEveryConnectionOfOneNode(Node node) throws NodeNotAdjacentException {
+ 
+    public void deleteEveryConnectionOfNode(Node node) throws NodeNotAdjacentException {
         if (node != null) {
             int connectionsNumber = node.nodeConnections.size();
             for (int i = 0; i < connectionsNumber; i++) {
@@ -101,16 +77,10 @@ public class Graph {
         }
     }
 
-    /**
-     * Deletes a node from the graph with his conenctions
-     * 
-     * @param node The node to delete
-     * @throws NodeDoesNotExitsException Thrown if the node does not exists
-     */
     public void deleteNode(Node node) throws NodeDoesNotExitsException {
         try {
             if (nodesList.remove(node)) {
-                deleteEveryConnectionOfOneNode(node);
+                deleteEveryConnectionOfNode(node);
             } else {
                 throw new NodeDoesNotExitsException(node);
             }
@@ -119,15 +89,6 @@ public class Graph {
         }
     }
 
-    /**
-     * Used to scan the connections list searching for the connection object with
-     * node1 as starting node and node2 as ending node
-     * 
-     * @param node1 The starting node of the connection
-     * @param node2 The ending node of the connection
-     * @return The object Edge establishing connection from node1 to node2, if this
-     *         doesn't exists returns null
-     */
     public Edge getNodesConnection(Node node1, Node node2) {
         for (Edge connectionOfNodes : edgesList) {
             Node candidateNode1 = connectionOfNodes.startingNode;
@@ -139,12 +100,6 @@ public class Graph {
         return null;
     }
 
-    /**
-     * Finds the node searching by specific name
-     * 
-     * @param name The name of the node to search
-     * @return The node with the name or null if that doesn't exists
-     */
     public Node getNodeByName(String name) {
         for (Node node : nodesList) {
             if (node.name.equals(name)) {
@@ -154,22 +109,10 @@ public class Graph {
         return null;
     }
 
-    /**
-     * Returns a list of connections associated with the input node
-     * 
-     * @param node The node where the connections needs to start
-     * @return The list of connections from that node
-     */
     public ArrayList<Edge> getAllNodeConnections(Node node) {
         return node.nodeConnections;
     }
 
-    /**
-     * Returns a list of the nodes reachable from the input node
-     * 
-     * @param node The node where we start
-     * @return Returns an arrayList of nodes reachable by one step from startin node
-     */
     public ArrayList<Node> getListOfNodesConnectedFromThisNode(Node node) {
         return node.adjacentNodes;
     }
@@ -196,12 +139,6 @@ public class Graph {
         return matrix;
     }
 
-    /**
-     * Gets the node in the position in the graph
-     * 
-     * @param position An array of 2 integers stating for x and y
-     * @return The node existing in the x and y position
-     */
     public Node getNodeByPosition(int[] position) {
         int radius;
         if (nodesList.isEmpty()) {
@@ -218,22 +155,12 @@ public class Graph {
         return null;
     }
 
-    /**
-     * Changes the arrow type for each edge in the graph
-     * 
-     * @param type The new arrow type
-     */
     public void changeArrowType(ArrowType type) {
         for (Edge edge : edgesList) {
             edge.changeArrowType(type);
         }
     }
 
-    /**
-     * Changes the diameter of all the nodes in the graph
-     * 
-     * @param diameter The new diameter
-     */
     public void changeNodesDiameter(int diameter) {
         for (Node node : nodesList) {
             node.changeDiameter(diameter);
@@ -353,11 +280,6 @@ public class Graph {
         return true;
     }
     
-    /**
-     * Checks if the graph is biparted and colors the colore var in each node with
-     * specific node color if succesfull
-     * @return Returns true if the graph is biparted else returns false
-     */
     public void isBiparted() {
         for (Node node : this.nodesList) {
             node.colore = null;
@@ -417,11 +339,6 @@ public class Graph {
         }
     }
     
-    /**
-     * Checks if the graph is n regular (means all nodes are connected at max n connections)
-     * @param n The value of connections every node has to be
-     * @return If every node has n connections true else false
-     */
     public Boolean isNRegular(int n) {
         for (Node node : this.nodesList) {
             if (node.getNodeDegree() != n) {
@@ -431,10 +348,6 @@ public class Graph {
         return true;
     }
 
-    /**
-     * Checks if the graph has all the possible edges
-     * @return Returns true if this graph is a clique else false
-     */
     public Boolean isAClique() {
         int n = this.nodesList.size();
         int maximumEdgesInGraph = (n * (n - 1)) / 2;
@@ -465,10 +378,6 @@ public class Graph {
         }
     }
 
-    /**
-     * Checks if the graph has cycles
-     * @return Returns true if a cycle exists else returns false
-     */
     public Boolean checkIfCyclesExist() {
         for (Node node : this.nodesList) {
             node.colore = Colore.BIANCO;
@@ -495,11 +404,6 @@ public class Graph {
         return false;
     }
 
-    /**
-     * Finds an arborescence starting from the given node
-     * an arborescence is all the nodes the starting node car directly reach
-     * @param node The node where all the arborescence starts
-     */
     public void findArborescence(Node node) {
         ArrayList<Node> nodeToVisit = new ArrayList<Node>();
         for (Node n : this.nodesList) {
@@ -519,10 +423,6 @@ public class Graph {
         }
     }
 
-    /**
-     * Finds where the cycle is
-     * @return Returns a node in the cycle
-     */ 
     public Node whereIsTheCycle() {
         this.checkIfCyclesExist();
         return cyclicNode;

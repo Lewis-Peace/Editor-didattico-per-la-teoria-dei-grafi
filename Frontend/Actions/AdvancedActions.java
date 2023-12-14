@@ -18,6 +18,7 @@ import Backend.Node;
 import Backend.Path;
 import Backend.TipoAlgoritmo;
 import Backend.Exceptions.NodeNotAdjacentException;
+import Backend.Traduction.Traduction;
 import Frontend.Canvas;
 import Main.Main;
 import Frontend.GraphicalParts.InputTextField;
@@ -37,7 +38,7 @@ public class AdvancedActions {
         @Override
         public void actionPerformed(ActionEvent e) {
             if (Main.graph.nodesList.isEmpty()) {
-                new PopupMessage(Main.traducer.translate("emptyGraph"), Main.traducer.translate("error"));
+                new PopupMessage(Traduction.translate("emptyGraph"), Traduction.translate("error"));
             } else {
                 Main.graph.isBiparted();
                 Boolean resutl = Main.graph.isBiparted;
@@ -58,7 +59,7 @@ public class AdvancedActions {
 					} catch (NodeNotAdjacentException e1) {
 					}
                     Main.canvas.repaint();
-                    new PopupMessage(Main.traducer.translate("biErr"), "Alert");
+                    new PopupMessage(Traduction.translate("biErr"), "Alert");
                 }
             }
         }
@@ -97,9 +98,9 @@ public class AdvancedActions {
 
         public FindShortestPathFrom2Nodes(String name) {
             super(name);
-            this.panel.add(new JLabel(Main.traducer.translate("stNdNm")));
+            this.panel.add(new JLabel(Traduction.translate("stNdNm")));
             this.panel.add(txt1);
-            this.panel.add(new JLabel(Main.traducer.translate("fnNdNm")));
+            this.panel.add(new JLabel(Traduction.translate("fnNdNm")));
             this.panel.add(txt2);
             this.panel.setLayout(new GridLayout());
         }
@@ -111,7 +112,7 @@ public class AdvancedActions {
                 Node startingNode = Main.graph.getNodeByName(txt1.getText());
                 Node finalNode = Main.graph.getNodeByName(txt2.getText());
                 if (startingNode == null || finalNode == null) {
-                    new PopupMessage(Main.traducer.translate("nodeNameErrorMul"), Main.traducer.translate("error"));
+                    new PopupMessage(Traduction.translate("nodeNameErrorMul"), Traduction.translate("error"));
                 } else {
                     Path path = Main.graph.minPathFromFirstNodeToSecond(startingNode, finalNode);
                     if (finalNode.parent != null) {
@@ -127,7 +128,7 @@ public class AdvancedActions {
                         }
                         Main.canvas.repaint();
                     } else {
-                        new PopupMessage(Main.traducer.translate("noPath1"), "Attention");
+                        new PopupMessage(Traduction.translate("noPath1"), "Attention");
                     }
                 }
             }
@@ -147,15 +148,15 @@ public class AdvancedActions {
         @Override
         public void actionPerformed(ActionEvent e) {
             if (Main.graph.nodesList.isEmpty()) {
-                new PopupMessage(Main.traducer.translate("emptyGraph"), Main.traducer.translate("error"));
+                new PopupMessage(Traduction.translate("emptyGraph"), Traduction.translate("error"));
             } else {
                 Node startingNode = Main.graph.nodesList.get(0);
                 this.eulerianPath = new Path(startingNode, startingNode);
                 this.eulerianPath.findEulerianPath(Main.graph, Main.graph.edgesList.size());
                 if (this.eulerianPath.eluerianEnded) {
-                    new StepperGUI(Main.graph, this.eulerianPath, TipoAlgoritmo.EULERIANO, Main.traducer, "Stepper");
+                    new StepperGUI(Main.graph, this.eulerianPath, TipoAlgoritmo.EULERIANO, "Stepper");
                 } else {
-                    new PopupMessage(Main.traducer.translate("noPath2"), Main.traducer.translate("attention"));
+                    new PopupMessage(Traduction.translate("noPath2"), Traduction.translate("attention"));
                 }
             }
         }
@@ -172,15 +173,15 @@ public class AdvancedActions {
         @Override
         public void actionPerformed(ActionEvent e) {
             if (Main.graph.nodesList.isEmpty()) {
-                new PopupMessage(Main.traducer.translate("emptyGraph"), Main.traducer.translate("error"));
+                new PopupMessage(Traduction.translate("emptyGraph"), Traduction.translate("error"));
             } else {
                 Node startingNode = Main.graph.nodesList.get(0);
                 this.hamiltonianPath = new Path(startingNode, startingNode);
                 this.hamiltonianPath.findHamiltonianPath(Main.graph, Main.graph.nodesList.size());
                 if (this.hamiltonianPath.foundHamiltonianPath) {
-                    new StepperGUI(Main.graph, this.hamiltonianPath, TipoAlgoritmo.HAMILTONIANO, Main.traducer, "Stepper");
+                    new StepperGUI(Main.graph, this.hamiltonianPath, TipoAlgoritmo.HAMILTONIANO, "Stepper");
                 } else {
-                    new PopupMessage(Main.traducer.translate("noPath3"), Main.traducer.translate("attention"));
+                    new PopupMessage(Traduction.translate("noPath3"), Traduction.translate("attention"));
                 }
             }
         }
@@ -202,7 +203,7 @@ public class AdvancedActions {
 
         @Override
         public void actionPerformed(ActionEvent e) {
-            String name = new InputTextField(Main.traducer.translate("ndNm")).getInput("Input");
+            String name = new InputTextField(Traduction.translate("ndNm")).getInput("Input");
             if (name != null) {
                 int[] position = getFreePosition(radius * 2);
                 Node node = new Node(position[0], position[1], name);
@@ -259,9 +260,9 @@ public class AdvancedActions {
 
         @Override
         public void actionPerformed(ActionEvent e) {
-            Node startingNode = Main.graph.getNodeByName(new InputTextField(Main.traducer.translate("arboQ") + ":").getInput(Main.traducer.translate("arN")));
+            Node startingNode = Main.graph.getNodeByName(new InputTextField(Traduction.translate("arboQ") + ":").getInput(Traduction.translate("arN")));
             if (startingNode == null) {
-                new PopupMessage(Main.traducer.translate("nodeNameError"), Main.traducer.translate("error"));
+                new PopupMessage(Traduction.translate("nodeNameError"), Traduction.translate("error"));
             } else {
                 Main.graph.findArborescence(startingNode);
                 paintArborescence();

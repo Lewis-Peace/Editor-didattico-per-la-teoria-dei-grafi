@@ -10,13 +10,13 @@ import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 
 public class Traduction {
-    public String language;
+    public static String language;
 
-    public Traduction(String language) {
-        this.language = language;
+    public static void setLanguage(String language) {
+        Traduction.language = language;
     }
 
-    public String translate(String string) {
+    public static String translate(String string) {
         File file = new File("./Backend/Traduction/language.xml");
         try {
             DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
@@ -26,7 +26,7 @@ public class Traduction {
             NodeList languages = doc.getElementsByTagName("language");
             for (int i = 0; i < languages.getLength(); i++) {
                 Element candidateLanguage = (Element) languages.item(i);
-                if (candidateLanguage.getAttribute("lang").equals(this.language)){
+                if (candidateLanguage.getAttribute("lang").equals(language)){
                     NodeList words = ((Element) languages.item(i)).getElementsByTagName("str");
                     for (int j = 0; j < words.getLength(); j++) {
                         Element candidateWord = (Element) words.item(j);
@@ -41,9 +41,4 @@ public class Traduction {
             return "Error on loading translated string";
         }
     }
-
-    public String toString() {
-        return "You are using " + language;
-    }
-
 }

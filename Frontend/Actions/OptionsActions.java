@@ -9,6 +9,7 @@ import java.io.IOException;
 import javax.swing.AbstractAction;
 import javax.swing.WindowConstants;
 
+import Backend.Traduction.Traduction;
 import Main.Main;
 import Frontend.GraphicalParts.HelpWindow;
 import Frontend.GraphicalParts.InputTextField;
@@ -29,7 +30,7 @@ public class OptionsActions {
 
         @Override
         public void actionPerformed(ActionEvent e) {
-            int diameter = Integer.parseInt(new InputTextField(Main.traducer.translate("diamLab")).getInput("Options"));
+            int diameter = Integer.parseInt(new InputTextField(Traduction.translate("diamLab")).getInput("Options"));
             Main.graph.changeNodesDiameter(diameter);
             Main.canvas.repaint();
         }
@@ -90,10 +91,10 @@ public class OptionsActions {
 
         @Override
         public void actionPerformed(ActionEvent e) {
-            if (Main.traducer.language.equals("italian")) {
+            if (Traduction.language.equals("italian")) {
                 this.openItalianHelpPage();
             } else {
-                new HelpWindow(Main.traducer);
+                new HelpWindow();
             }
         }
 

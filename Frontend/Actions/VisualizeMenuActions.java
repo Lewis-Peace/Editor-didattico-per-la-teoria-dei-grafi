@@ -6,6 +6,7 @@ import javax.swing.AbstractAction;
 
 import Backend.AdjacencyMatrix;
 import Backend.IncidenceMatrix;
+import Backend.Traduction.Traduction;
 import Frontend.GraphicalParts.MatrixWindow;
 import Frontend.GraphicalParts.PopupMessage;
 
@@ -26,7 +27,7 @@ public class VisualizeMenuActions {
         @Override
         public void actionPerformed(ActionEvent e) {
             if (Main.graph.nodesList.isEmpty()) {
-                new PopupMessage(Main.traducer.translate("emptyGraph"), Main.traducer.translate("error"));
+                new PopupMessage(Traduction.translate("emptyGraph"), Traduction.translate("error"));
             } else {
                 AdjacencyMatrix m = Main.graph.getAdjacencyMatrix();
                 new MatrixWindow(m);
@@ -46,7 +47,7 @@ public class VisualizeMenuActions {
         @Override
         public void actionPerformed(ActionEvent e) {
             if (Main.graph.nodesList.isEmpty()) {
-                new PopupMessage(Main.traducer.translate("emptyGraph"), Main.traducer.translate("error"));
+                new PopupMessage(Traduction.translate("emptyGraph"), Traduction.translate("error"));
             } else {
                 IncidenceMatrix m = Main.graph.getIncidenceMatrix();
                 new MatrixWindow(m);
@@ -69,9 +70,9 @@ public class VisualizeMenuActions {
         @Override
         public void actionPerformed(ActionEvent e) {
             if (Main.graph.nodesList.isEmpty()) {
-                new PopupMessage(Main.traducer.translate("emptyGraph"), Main.traducer.translate("error"));
+                new PopupMessage(Traduction.translate("emptyGraph"), Traduction.translate("error"));
             } else {
-                new MatrixWindow(Main.graph, Main.traducer);
+                new MatrixWindow();
             }
         }
 

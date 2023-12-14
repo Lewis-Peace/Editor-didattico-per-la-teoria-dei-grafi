@@ -22,8 +22,8 @@ public class Canvas extends JPanel {
     public Canvas(int width, int height, Color color) {
         this.setSize(width, height);
         this.backgroundColor = color;
-        this.addMouseListener(new MouseHandler(Main.traducer));
-        this.addMouseMotionListener(new MouseHandler(Main.traducer));
+        this.addMouseListener(new MouseHandler());
+        this.addMouseMotionListener(new MouseHandler());
     }
 
     @Override

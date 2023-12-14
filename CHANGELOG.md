@@ -17,7 +17,20 @@ straightforward as possible.
  - 
  
 ### Fixed
+
+## [1.0.1] - yyyy-mm-dd
+ 
+Here we write upgrading notes for brands. It's a team effort to make them as
+straightforward as possible.
+ 
+### Added
  - 
+ 
+### Changed
+ - 
+ 
+### Fixed
+ - Moving nodes bug
 
 ## [1.0.0] - 2022-03-19
   

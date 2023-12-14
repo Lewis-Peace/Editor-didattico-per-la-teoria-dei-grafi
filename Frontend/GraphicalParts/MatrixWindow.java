@@ -11,9 +11,9 @@ import javax.swing.JScrollPane;
 import javax.swing.SwingConstants;
 
 import Backend.AdjacencyMatrix;
-import Backend.Graph;
 import Backend.IncidenceMatrix;
 import Backend.Traduction.Traduction;
+import Main.Main;
 
 public class MatrixWindow extends JFrame{
     
@@ -43,19 +43,19 @@ public class MatrixWindow extends JFrame{
         display(true);
     }
 
-    public MatrixWindow(Graph graph, Traduction traducer) {
-        this.col = graph.nodesList.size() + 1;
+    public MatrixWindow() {
+        this.col = Main.graph.nodesList.size() + 1;
         this.row = 2;
         this.matrix = new String[this.row][this.col];
-        matrix[0][0] = traducer.translate("nd");
-        matrix[1][0] = traducer.translate("deg");
+        matrix[0][0] = Traduction.translate("nd");
+        matrix[1][0] = Traduction.translate("deg");
         for (int i = 0; i < this.row; i++) {
             for (int j = 1; j < this.col; j++) {
                 if (i == 0) {
-                    matrix[i][j] = graph.nodesList.get(j - 1).name;
+                    matrix[i][j] = Main.graph.nodesList.get(j - 1).name;
                 }
                 if (i == 1) {
-                    matrix[i][j] = graph.nodesList.get(j - 1).nodeDegree + "";
+                    matrix[i][j] = Main.graph.nodesList.get(j - 1).nodeDegree + "";
                 }
             }
         }

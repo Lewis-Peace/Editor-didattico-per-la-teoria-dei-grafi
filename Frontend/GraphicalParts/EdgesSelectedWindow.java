@@ -25,7 +25,6 @@ public class EdgesSelectedWindow extends JInternalFrame {
 
     private Graph graph;
     private Canvas canvas;
-    private Traduction traducer;
     private JFrame frame;
     /**
      * List of selected Edges
@@ -36,11 +35,10 @@ public class EdgesSelectedWindow extends JInternalFrame {
     JLabel label;
     JPanel panel;
 
-    public EdgesSelectedWindow(JFrame frame, Graph graph, Canvas canvas, Traduction traducer) {
-        super(traducer.translate("edgeSelection"), true, true);
+    public EdgesSelectedWindow(JFrame frame, Graph graph, Canvas canvas) {
+        super(Traduction.translate("edgeSelection"), true, true);
         this.frame = frame;
         this.canvas = canvas;
-        this.traducer = traducer;
         this.graph = graph;
         this.edgeList = new ArrayList<Edge>();
         this.nodeList = new ArrayList<Node>();
@@ -56,9 +54,9 @@ public class EdgesSelectedWindow extends JInternalFrame {
     private JMenuBar menu() {
         JMenuBar menu = new JMenuBar();
         JMenuItem item;
-        item = new JMenuItem(new ClearAction(this, traducer.translate("clear")));
+        item = new JMenuItem(new ClearAction(this, Traduction.translate("clear")));
         menu.add(item);
-        item = new JMenuItem(new DeleteAllSelectedConnections(graph, canvas, this.edgeList, this, traducer.translate("delCon")));
+        item = new JMenuItem(new DeleteAllSelectedConnections(graph, canvas, this.edgeList, this, Traduction.translate("delCon")));
         menu.add(item);
         return menu;
     }

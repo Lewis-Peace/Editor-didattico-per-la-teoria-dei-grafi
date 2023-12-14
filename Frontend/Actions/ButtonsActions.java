@@ -17,6 +17,7 @@ import Backend.Node;
 import Backend.MainLoader;
 import Backend.Exceptions.NodeDoesNotExitsException;
 import Backend.Exceptions.NodesAlreadyConnectedException;
+import Backend.Traduction.Traduction;
 import Main.Main;
 import Frontend.GraphicalParts.InputTextField;
 import Frontend.GraphicalParts.PopupMessage;
@@ -26,18 +27,16 @@ public class ButtonsActions {
 
     public static class Stepper extends AbstractAction {
         private static final long serialVersionUID = -4905679823129595179L;
-        private Graph graph;
         private StepperGUI stepperGui;
-        public Stepper(String name, Graph graph) {
+        public Stepper(String name) {
             super(name);
-            this.graph = graph;
         }
 
         @Override
         public void actionPerformed(ActionEvent e) {
             JMenuItem item = (JMenuItem) e.getSource();
-            this.graph.changeStepperStatus();
-            if (graph.stepper) {
+            Main.graph.changeStepperStatus();
+            if (Main.graph.stepper) {
                 item.setText("Stepper: true");
                 //this.stepperGui = new StepperGUI("Stepper");
             } else {
@@ -70,7 +69,7 @@ public class ButtonsActions {
         public ChangeGraphOrientation(String name) {
             super(name);
             this.panel = new JPanel();
-            this.panel.add(new JLabel(Main.traducer.translate("graphNotEmpty")));
+            this.panel.add(new JLabel(Traduction.translate("graphNotEmpty")));
         }
 
         @Override
@@ -78,7 +77,7 @@ public class ButtonsActions {
             if (Main.graph.edgesList.isEmpty()) {
                 changeOrientation((JMenuItem) e.getSource());
             } else {
-                int result = JOptionPane.showConfirmDialog(Main.frame, this.panel, Main.traducer.translate("attention"), JOptionPane.OK_CANCEL_OPTION);
+                int result = JOptionPane.showConfirmDialog(Main.frame, this.panel, Traduction.translate("attention"), JOptionPane.OK_CANCEL_OPTION);
                 if (result == JOptionPane.OK_OPTION) {
                     changeOrientation((JMenuItem) e.getSource());
                 }
@@ -88,9 +87,9 @@ public class ButtonsActions {
         private void changeOrientation(JMenuItem item) {
             Main.graph.changeGraphOrientation();
             if (Main.graph.oriented) {
-                item.setText(Main.traducer.translate("gOrientation1"));
+                item.setText(Traduction.translate("gOrientation1"));
             } else {
-                item.setText(Main.traducer.translate("gOrientation2"));
+                item.setText(Traduction.translate("gOrientation2"));
             }
             Main.canvas.repaint();
         }
@@ -153,7 +152,7 @@ public class ButtonsActions {
         @Override
         public void actionPerformed(ActionEvent e) {
             if (!Main.graph.nodesList.isEmpty()) {
-                String name = new InputTextField(Main.traducer.translate("delMex")).getInput("Action");
+                String name = new InputTextField(Traduction.translate("delMex")).getInput("Action");
                 Node toDelete = Main.graph.getNodeByName(name);
                 if (toDelete != null) {
                     try {
@@ -162,7 +161,7 @@ public class ButtonsActions {
                     }
                     Main.canvas.repaint();
                 } else {
-                    new PopupMessage(Main.traducer.translate("ndNmNF"), Main.traducer.translate("help"));
+                    new PopupMessage(Traduction.translate("ndNmNF"), Traduction.translate("help"));
                 }
             }
         }
@@ -224,7 +223,7 @@ public class ButtonsActions {
             if (loadedGraph != null) {
                 Main.frame.setDefaultCloseOperation(WindowConstants.HIDE_ON_CLOSE);
                 Main.frame.dispatchEvent(new WindowEvent(Main.frame, WindowEvent.WINDOW_CLOSING));
-                Main.openWindow(loadedGraph, Main.traducer.language);
+                Main.openWindow(loadedGraph, Traduction.language);
             }
         }
 
@@ -250,7 +249,7 @@ public class ButtonsActions {
             if (loadedGraph != null) {
                 Main.frame.setDefaultCloseOperation(WindowConstants.HIDE_ON_CLOSE);
                 Main.frame.dispatchEvent(new WindowEvent(Main.frame, WindowEvent.WINDOW_CLOSING));
-                Main.openWindow(loadedGraph, Main.traducer.language);
+                Main.openWindow(loadedGraph, Traduction.language);
             }
         }
 

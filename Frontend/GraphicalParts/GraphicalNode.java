@@ -3,7 +3,9 @@ package Frontend.GraphicalParts;
 import java.awt.Color;
 import java.awt.Graphics;
 
-public abstract class GraphicalNode{
+import javax.swing.JComponent;
+
+public abstract class GraphicalNode extends JComponent {
     public int diameter = 35;
     public int xPos;
     public int yPos;

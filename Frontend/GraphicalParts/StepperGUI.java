@@ -25,20 +25,18 @@ import java.awt.event.ActionEvent;
 public class StepperGUI extends JFrame {
     private static final long serialVersionUID = 1L;
     int counter;
-    Traduction traducer;
 
-    public StepperGUI(Graph graph, Path path, TipoAlgoritmo algo, Traduction traducer, String name) {
+    public StepperGUI(Graph graph, Path path, TipoAlgoritmo algo, String name) {
         super(name);
-        this.traducer = traducer;
         Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
         JMenuBar menubar = new JMenuBar();
         JButton forwardButton = new JButton(new MakeAStepAction(graph, algo, path));
         JButton undoButton = new JButton(new UndoAStepAction(graph, algo, path));
         menubar.add(undoButton);
-        menubar.add(new JLabel(this.traducer.translate("stepperText")));
+        menubar.add(new JLabel(Traduction.translate("stepperText")));
         menubar.add(forwardButton);
         this.add(menubar, BorderLayout.NORTH);
-        this.add(new JButton(new DoAllStepsAction(graph, algo, path, traducer)), BorderLayout.SOUTH);
+        this.add(new JButton(new DoAllStepsAction(graph, algo, path)), BorderLayout.SOUTH);
         this.pack();
         this.setLocation(dim.width / 2 - this.getSize().width / 2, dim.height / 4 * 3);
         this.setVisible(true);
@@ -53,8 +51,8 @@ public class StepperGUI extends JFrame {
         Path path;
         TipoAlgoritmo algo;
         
-        public DoAllStepsAction(Graph graph, TipoAlgoritmo algo, Path path, Traduction traducer) {
-            super(traducer.translate("doAllSteps"));
+        public DoAllStepsAction(Graph graph, TipoAlgoritmo algo, Path path) {
+            super(Traduction.translate("doAllSteps"));
             this.graph = graph;
             this.algo = algo;
             this.path = path;

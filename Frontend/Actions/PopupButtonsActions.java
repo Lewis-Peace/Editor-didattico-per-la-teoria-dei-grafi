@@ -21,62 +21,54 @@ public class PopupButtonsActions {
          *
          */
         private static final long serialVersionUID = 1L;
-        private Graph graph;
         private int[] position;
-        private Traduction traducer;
         private Path eulerianPath;
 
-        public FindEulerianPathAction(Graph graph, Traduction traducer, int[] position, String name) {
+        public FindEulerianPathAction(int[] position, String name) {
             super(name);
-            this.graph = graph;
-            this.traducer = traducer;
             this.position = position;
         }
 
         @Override
         public void actionPerformed(ActionEvent e) {
-            Node startingNode = graph.getNodeByPosition(position);
+            Node startingNode = Main.graph.getNodeByPosition(position);
             if (startingNode != null) {
                 this.eulerianPath = new Path(startingNode, startingNode);
-                this.eulerianPath.findEulerianPath(graph, graph.edgesList.size());
+                this.eulerianPath.findEulerianPath(Main.graph, Main.graph.edgesList.size());
                 if (this.eulerianPath.eluerianEnded) {
-                    new StepperGUI(graph, this.eulerianPath, TipoAlgoritmo.EULERIANO, traducer, "Stepper");
+                    new StepperGUI(Main.graph, this.eulerianPath, TipoAlgoritmo.EULERIANO, "Stepper");
                 } else {
-                    new PopupMessage(this.traducer.translate("noPath2"), this.traducer.translate("attention"));
+                    new PopupMessage(Traduction.translate("noPath2"), Traduction.translate("attention"));
                 }
             } else {
-                new PopupMessage(this.traducer.translate("noNodeSelected"), this.traducer.translate("error"));
+                new PopupMessage(Traduction.translate("noNodeSelected"), Traduction.translate("error"));
             }
         }
     }
 
     public static class FindHamiltonianPathAction extends AbstractAction {
         private static final long serialVersionUID = 1L;
-        private Graph graph;
-        private Traduction traducer;
         private int[] position;
         private Path hamiltonianPath;
 
-        public FindHamiltonianPathAction(Graph graph, Traduction traducer, int[] position, String name) {
+        public FindHamiltonianPathAction(int[] position, String name) {
             super(name);
-            this.graph = graph;
-            this.traducer = traducer;
             this.position = position;
         }
 
         @Override
         public void actionPerformed(ActionEvent e) {
-            Node startingNode = graph.getNodeByPosition(position);
+            Node startingNode = Main.graph.getNodeByPosition(position);
             if (startingNode != null) {
                  this.hamiltonianPath = new Path(startingNode, startingNode);
-                 this.hamiltonianPath.findHamiltonianPath(graph, graph.nodesList.size());
+                 this.hamiltonianPath.findHamiltonianPath(Main.graph, Main.graph.nodesList.size());
                 if (this.hamiltonianPath.foundHamiltonianPath) {
-                    new StepperGUI(graph, this.hamiltonianPath, TipoAlgoritmo.HAMILTONIANO, traducer, "Stepper");
+                    new StepperGUI(Main.graph, this.hamiltonianPath, TipoAlgoritmo.HAMILTONIANO, "Stepper");
                 } else {
-                    new PopupMessage(this.traducer.translate("noPath3"), this.traducer.translate("attention"));
+                    new PopupMessage(Traduction.translate("noPath3"), Traduction.translate("attention"));
                 }
             } else {
-                new PopupMessage(this.traducer.translate("noNodeSelected"), this.traducer.translate("error"));
+                new PopupMessage(Traduction.translate("noNodeSelected"), Traduction.translate("error"));
             }
         }
     }
@@ -84,29 +76,27 @@ public class PopupButtonsActions {
     public static class AddNodeAction extends AbstractAction {
 
         private static final long serialVersionUID = 5492635494287414457L;
-        private Graph graph;
         private int xPosition;
         private int yPosition;
 
-        public AddNodeAction(Graph graph, int[] position, String name) {
+        public AddNodeAction(int[] position, String name) {
             super(name);
-            this.graph = graph;
             this.xPosition = position[0];
             this.yPosition = position[1];
         }
 
         @Override
         public void actionPerformed(ActionEvent e) {
-            String nodeName = getLeastNumberNamePossible(graph.nodesList.size());
+            String nodeName = getLeastNumberNamePossible(Main.graph.nodesList.size());
             Node node = new Node(xPosition, yPosition, nodeName);
-            graph.addNode(node);
+            Main.graph.addNode(node);
             Main.canvas.paintComponent(Main.canvas.getGraphics());
 
         }
 
         private String getLeastNumberNamePossible(int maxName) {
             for (int i = 0; i <= maxName; i++) {
-                if (graph.getNodeByName(i + "") == null) {
+                if (Main.graph.getNodeByName(i + "") == null) {
                     return i + "";
                 }
             }
@@ -121,21 +111,19 @@ public class PopupButtonsActions {
          *
          */
         private static final long serialVersionUID = 7851390276908254776L;
-        private Graph graph;
         private int[] position;
 
-        public RemoveNodeAction(Graph graph, int[] position, String name) {
+        public RemoveNodeAction(int[] position, String name) {
             super(name);
-            this.graph = graph;
             this.position = position;
         }
 
         @Override
         public void actionPerformed(ActionEvent e) {
-            if (!graph.nodesList.isEmpty()) {
-                Node toDelete = graph.getNodeByPosition(position);
+            if (!Main.graph.nodesList.isEmpty()) {
+                Node toDelete = Main.graph.getNodeByPosition(position);
                 try {
-                    graph.deleteNode(toDelete);
+                    Main.graph.deleteNode(toDelete);
                 } catch (NodeDoesNotExitsException e1) {
                     System.err.println(e1.toString());
                 }
@@ -174,31 +162,29 @@ public class PopupButtonsActions {
          *
          */
         private static final long serialVersionUID = 6631150416007845101L;
-        private Graph graph;
         private int[] position;
 
-        public ConnectAllSelectedToNode(Graph graph, int[] position, String name) {
+        public ConnectAllSelectedToNode(int[] position, String name) {
             super(name);
-            this.graph = graph;
             this.position = position;
         }
 
         @Override
         public void actionPerformed(ActionEvent e) {
             int i;
-            Node node = graph.getNodeByPosition(position);
-            for (i = 0; i < graph.nodesList.size(); i++) {
-                Node node1 = graph.nodesList.get(i);
+            Node node = Main.graph.getNodeByPosition(position);
+            for (i = 0; i < Main.graph.nodesList.size(); i++) {
+                Node node1 = Main.graph.nodesList.get(i);
                 if (node1.selected && !node1.equals(node)) {
                     try {
-                        graph.connectNodes(node1, node);
+                        Main.graph.connectNodes(node1, node);
                     } catch (NodesAlreadyConnectedException e1) {
                         e1.printStackTrace();
                     }
                 }
             }
-            for (i = 0; i < graph.nodesList.size(); i++) {
-                graph.nodesList.get(i).selected = false;
+            for (i = 0; i < Main.graph.nodesList.size(); i++) {
+                Main.graph.nodesList.get(i).selected = false;
             }
             Main.canvas.repaint();
         }

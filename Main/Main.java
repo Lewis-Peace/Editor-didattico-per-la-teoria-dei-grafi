@@ -15,7 +15,6 @@ public class Main {
     public static JFrame frame;
     public static Canvas canvas;
     public static Graph graph;
-    public static Traduction traducer;
 
     public static void main(String[] args) {
         Main.graph = new Graph(false);
@@ -25,7 +24,7 @@ public class Main {
 
     public static void openWindow(Graph graph, String language) {
         Main.graph = graph;
-        Main.traducer = new Traduction(language);
+        Traduction.setLanguage(language);
 
         Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
 
