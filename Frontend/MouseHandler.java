@@ -15,7 +15,7 @@ public class MouseHandler extends MouseInputAdapter {
 
 
     public MouseHandler() {
-        this.edgesSelectedWindow = new EdgesSelectedWindow(Main.frame, Main.graph, Main.canvas);
+        this.edgesSelectedWindow = new EdgesSelectedWindow();
         Main.frame.add(edgesSelectedWindow);
     }
 

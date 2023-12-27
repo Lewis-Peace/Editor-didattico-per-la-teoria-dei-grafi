@@ -19,7 +19,6 @@ import Backend.Path;
 import Backend.TipoAlgoritmo;
 import Backend.Exceptions.NodeNotAdjacentException;
 import Backend.Traduction.Traduction;
-import Frontend.Canvas;
 import Main.Main;
 import Frontend.GraphicalParts.InputTextField;
 import Frontend.GraphicalParts.PopupMessage;

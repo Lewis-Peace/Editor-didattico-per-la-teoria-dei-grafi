@@ -24,7 +24,7 @@ Here we write upgrading notes for brands. It's a team effort to make them as
 straightforward as possible.
  
 ### Added
- - 
+ - Multiple node selection with cursor
  
 ### Changed
  - 

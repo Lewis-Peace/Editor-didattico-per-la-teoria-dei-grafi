@@ -6,7 +6,6 @@ import java.awt.event.ActionEvent;
 import java.util.ArrayList;
 
 import javax.swing.AbstractAction;
-import javax.swing.JFrame;
 import javax.swing.JInternalFrame;
 import javax.swing.JLabel;
 import javax.swing.JMenuBar;
@@ -14,19 +13,14 @@ import javax.swing.JMenuItem;
 import javax.swing.JPanel;
 
 import Backend.Edge;
-import Backend.Graph;
 import Backend.Node;
 import Backend.Exceptions.NodeNotAdjacentException;
 import Backend.Traduction.Traduction;
-import Frontend.Canvas;
 import Main.Main;
 
 public class EdgesSelectedWindow extends JInternalFrame {
     private static final long serialVersionUID = 1L;
 
-    private Graph graph;
-    private Canvas canvas;
-    private JFrame frame;
     /**
      * List of selected Edges
      */
@@ -36,11 +30,8 @@ public class EdgesSelectedWindow extends JInternalFrame {
     JLabel label;
     JPanel panel;
 
-    public EdgesSelectedWindow(JFrame frame, Graph graph, Canvas canvas) {
+    public EdgesSelectedWindow() {
         super(Traduction.translate("edgeSelection"), true, true);
-        this.frame = frame;
-        this.canvas = canvas;
-        this.graph = graph;
         this.edgeList = new ArrayList<Edge>();
         this.nodeList = new ArrayList<Node>();
         this.setLocation(0, 50);
@@ -87,7 +78,7 @@ public class EdgesSelectedWindow extends JInternalFrame {
      */
     private void displayPersonalPath(EdgesSelectedWindow edgesSelectedWindow) {
         if (this.nodeList.size() == 2) {
-            Edge newSelectedEdge = this.graph.getNodesConnection(nodeList.get(0), nodeList.get(1));
+            Edge newSelectedEdge = Main.graph.getNodesConnection(nodeList.get(0), nodeList.get(1));
             if (newSelectedEdge != null) {
                 if (this.edgeList.contains(newSelectedEdge)) {
                     this.edgeList.remove(newSelectedEdge);
@@ -106,11 +97,11 @@ public class EdgesSelectedWindow extends JInternalFrame {
     private void setedgeListListStringyfied() {
         for (int i = 0; i < edgeList.size(); i++) {
             Edge edge = edgeList.get(i);
-            if (graph.edgesList.contains(edge)) {
+            if (Main.graph.edgesList.contains(edge)) {
                 edge.changeColor(Color.RED);
                 if (!edge.oriented) {
                     edge.oriented = true;
-                    graph.getNodesConnection(edge.endingNode, edge.startingNode).changeColor(Color.RED);
+                    Main.graph.getNodesConnection(edge.endingNode, edge.startingNode).changeColor(Color.RED);
                 }
             } else {
                 edgeList.remove(edge);
@@ -122,7 +113,7 @@ public class EdgesSelectedWindow extends JInternalFrame {
             text += "(" + nodeList.get(0).name;
         }
         this.updateEdgeListString(text);
-        this.frame.repaint();
+        Main.frame.repaint();
     }
 
     /**
@@ -140,8 +131,8 @@ public class EdgesSelectedWindow extends JInternalFrame {
     public void clearAll() {
         this.nodeList.clear();
         this.edgeList.clear();
-        for (Edge edge : graph.edgesList) {
-            edge.oriented = graph.oriented;
+        for (Edge edge : Main.graph.edgesList) {
+            edge.oriented = Main.graph.oriented;
             edge.changeColor(Color.BLACK);
         }
         this.setedgeListListStringyfied();
