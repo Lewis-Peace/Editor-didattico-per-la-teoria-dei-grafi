@@ -115,6 +115,7 @@ public class Node extends GraphicalNode{
         output += "\n" + "adjacent nodes number: " + adjacentNodes.size();
         output += "\n" +"node degree: " + nodeDegree;
         output += "\n" +"node connections: " + nodeConnections;*/
+        output += " coords: " + xPos + " " + yPos;
         return output;
     }
 

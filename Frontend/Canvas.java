@@ -18,12 +18,37 @@ public class Canvas extends JPanel {
 
     private Color backgroundColor = Color.WHITE;
 
+    public static int[] selectionArea = new int[4];
+
     // Constructor of class
     public Canvas(int width, int height, Color color) {
         this.setSize(width, height);
         this.backgroundColor = color;
         this.addMouseListener(new MouseHandler());
         this.addMouseMotionListener(new MouseHandler());
+    }
+
+    public static void deselectAllNodes() {
+        Main.graph.deselectAllNodes();
+    }
+
+    public static void selectNodesByMultipleSelection() {
+        Canvas.deselectAllNodes();
+        int x, y, h, w;
+        x = selectionArea[0];
+        y = selectionArea[1];
+        w = selectionArea[2];
+        h = selectionArea[3];
+        for (Node n : Main.graph.nodesList) {
+            if (
+                x <= n.xPos &&
+                w + x >= n.xPos &&
+                h + y >= n.yPos &&
+                y <= n.yPos
+                ) {
+                    n.selected = true;
+                }
+        }
     }
 
     @Override
@@ -36,6 +61,9 @@ public class Canvas extends JPanel {
         }
         for (Node node : Main.graph.nodesList) {
             node.drawNode(g);
+        }
+        if (selectionArea[0] != -1) {
+            g.drawRect(selectionArea[0], selectionArea[1], selectionArea[2], selectionArea[3]);
         }
     }
 

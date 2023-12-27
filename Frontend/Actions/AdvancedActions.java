@@ -230,19 +230,15 @@ public class AdvancedActions {
          *
          */
         private static final long serialVersionUID = 7298071656742468894L;
-        private Graph graph;
-        private Canvas canvas;
 
-        public ColorNodesByDegreeAction(Graph graph, Canvas canvas, String buttonName) {
+        public ColorNodesByDegreeAction(String buttonName) {
             super(buttonName);
-            this.graph = graph;
-            this.canvas = canvas;
         }
 
         @Override
         public void actionPerformed(ActionEvent e) {
-            graph.divideByOddOrEvenDegree();
-            canvas.repaint();
+            Main.graph.divideByOddOrEvenDegree();
+            Main.canvas.repaint();
         }
 
     }

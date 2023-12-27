@@ -155,6 +155,13 @@ public class Graph implements IGraph{
         return null;
     }
 
+    public void deselectAllNodes() {
+        for (int i = 0; i < this.nodesList.size(); i++) {
+            Node node = nodesList.get(i);
+            node.selected = false;
+        }
+    }
+
     public void changeArrowType(ArrowType type) {
         for (Edge edge : edgesList) {
             edge.changeArrowType(type);

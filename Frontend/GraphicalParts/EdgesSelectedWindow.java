@@ -19,6 +19,7 @@ import Backend.Node;
 import Backend.Exceptions.NodeNotAdjacentException;
 import Backend.Traduction.Traduction;
 import Frontend.Canvas;
+import Main.Main;
 
 public class EdgesSelectedWindow extends JInternalFrame {
     private static final long serialVersionUID = 1L;
@@ -56,7 +57,7 @@ public class EdgesSelectedWindow extends JInternalFrame {
         JMenuItem item;
         item = new JMenuItem(new ClearAction(this, Traduction.translate("clear")));
         menu.add(item);
-        item = new JMenuItem(new DeleteAllSelectedConnections(graph, canvas, this.edgeList, this, Traduction.translate("delCon")));
+        item = new JMenuItem(new DeleteAllSelectedConnections(this.edgeList, this, Traduction.translate("delCon")));
         menu.add(item);
         return menu;
     }
@@ -172,15 +173,11 @@ public class EdgesSelectedWindow extends JInternalFrame {
          *
          */
         private static final long serialVersionUID = 1L;
-        private Graph graph;
-        private Canvas canvas;
         private EdgesSelectedWindow edgesSelectedWindow;
         private ArrayList<Edge> path;
 
-        public DeleteAllSelectedConnections(Graph graph, Canvas canvas, ArrayList<Edge> path, EdgesSelectedWindow edgesSelectedWindow, String buttonName) {
+        public DeleteAllSelectedConnections(ArrayList<Edge> path, EdgesSelectedWindow edgesSelectedWindow, String buttonName) {
             super(buttonName);
-            this.graph = graph;
-            this.canvas = canvas;
             this.path = path;
             this.edgesSelectedWindow = edgesSelectedWindow;
         }
@@ -189,19 +186,19 @@ public class EdgesSelectedWindow extends JInternalFrame {
         public void actionPerformed(ActionEvent e) {
             for (int i = 0; i < path.size(); i++) {
                 try {
-                    graph.deleteConnection(path.get(i).startingNode, path.get(i).endingNode);
+                    Main.graph.deleteConnection(path.get(i).startingNode, path.get(i).endingNode);
                 } catch (NodeNotAdjacentException e1) {
                 }
-                if (!graph.oriented) {
+                if (!Main.graph.oriented) {
                     try {
-                        graph.deleteConnection(path.get(i).endingNode, path.get(i).startingNode);
+                        Main.graph.deleteConnection(path.get(i).endingNode, path.get(i).startingNode);
                     } catch (NodeNotAdjacentException e1) {
                     }
                 }
             }
             this.edgesSelectedWindow.clearAll();
             this.edgesSelectedWindow.setVisible(false);
-            this.canvas.repaint();
+            Main.canvas.repaint();
         }
         
     }

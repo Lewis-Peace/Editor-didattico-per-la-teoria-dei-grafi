@@ -34,6 +34,7 @@ public class MouseHandler extends MouseInputAdapter {
             case MouseEvent.BUTTON1:
                 draggedNode = Main.graph.getNodeByPosition(startingPosition);
                 if (draggedNode == null) {
+                    Canvas.deselectAllNodes();
                     mouseAction = MouseActions.Selecting;
                 } else {
                     mouseAction = MouseActions.Moving;
@@ -62,9 +63,9 @@ public class MouseHandler extends MouseInputAdapter {
         super.mouseDragged(e);
         if (e.getModifiersEx() == MouseEvent.BUTTON1_DOWN_MASK && mouseAction == MouseActions.Moving) {
             draggedNode.changeNodePosition(e.getX(), e.getY());;
-        } else if (mouseAction == MouseActions.Selecting) {
-            
-            //this.drawSelectionRectangle(Main.canvas.getGraphics(), startingPosition[0], startingPosition[1], e.getX(), e.getY());
+        } else if (mouseAction == MouseActions.Selecting || mouseAction == MouseActions.SelectingMultiple) {
+            mouseAction = MouseActions.SelectingMultiple;
+            this.drawSelectionRectangle(Main.canvas.getGraphics(), startingPosition[0], startingPosition[1], e.getX(), e.getY());
         }
         Main.canvas.repaint();
     }
@@ -74,20 +75,26 @@ public class MouseHandler extends MouseInputAdapter {
         int py = Math.min(y,y2);
         int pw = Math.abs(x-x2);
         int ph = Math.abs(y-y2);
-        g.drawRect(px, py, pw, ph);
+        Canvas.selectionArea[0] = px;
+        Canvas.selectionArea[1] = py;
+        Canvas.selectionArea[2] = pw;
+        Canvas.selectionArea[3] = ph;
     }
 
     @Override
     public void mouseReleased(MouseEvent e) {
         super.mouseReleased(e);
         draggedNode = null;
-        mouseAction = MouseActions.Undefined;
+        if (mouseAction == MouseActions.SelectingMultiple) {
+            Canvas.selectNodesByMultipleSelection();
+            Canvas.selectionArea[0] = -1;
+        }
         Main.canvas.repaint();
+        mouseAction = MouseActions.Undefined;
     }
     
     @Override
     public void mouseEntered(MouseEvent e) {
-        System.out.println(e.getComponent());
     }
 
     @Override
